@@ -79,18 +79,20 @@ bash scripts/preflight.sh
 ## 4. 基本的な作業フロー
 
 ```
-┌──────────────────────────────────────────────────────────┐
-│  1. 元画像・講座データを確認（講座セットフォルダ/）      │
-│  2. 対象講座・対象 UNIT を特定                           │
-│  3. PNG 差し替え or 翻訳追加（言語タグ・カテゴリ確認）   │
-│  4. ./tools/scripts/build_all.sh で 24 本 ZIP 一括再生成 │
-│  5. ./scripts/preflight.sh で整合性チェック              │
-│  6. git status / git diff --stat で差分確認              │
-│  7. git add / git commit （1 機能 1 コミット）           │
-│  8. push 前に Codex レビューを通す                       │
-│  9. git push origin main （クロスサポートアカウント）    │
-└──────────────────────────────────────────────────────────┘
+┌──────────────────────────────────────────────────────────────┐
+│  1. 元画像・講座データを確認（講座セットフォルダ/）          │
+│  2. 対象講座・対象 UNIT を特定                               │
+│  3. PNG 差し替え or 翻訳追加（言語タグ・カテゴリ確認）       │
+│  4. ./tools/scripts/build_all.sh で 24 本 ZIP 一括再生成     │
+│     （内部で preflight + clean build + verify_zip 自動実行）│
+│  5. git status / git diff --stat で差分確認                  │
+│  6. git add / git commit （1 機能 1 コミット）               │
+│  7. push 前に Codex レビューを通す                           │
+│  8. git push origin main （クロスサポートアカウント）        │
+└──────────────────────────────────────────────────────────────┘
 ```
+
+> **`./scripts/preflight.sh` の使い分け**: `tools/scripts/preflight.sh`（素材ハッシュ照合）は `build_all.sh` 内で自動実行されるため、通常はステップ 4 だけで足りる。リポジトリ層チェック（必須ドキュメント・`.env` 漏れ・大容量誤コミット）が必要な時だけ `./scripts/preflight.sh` を別途実行する。
 
 詳細は次を参照:
 - 画像差し替え → [docs/build-flow.md](docs/build-flow.md)

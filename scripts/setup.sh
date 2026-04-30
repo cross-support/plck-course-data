@@ -95,8 +95,11 @@ for d in "${WORK_DIRS[@]}"; do
   if [[ -d "$BASE/$d" ]]; then
     ok "$d/ （存在）"
   else
-    mkdir -p "$BASE/$d"
-    ok "$d/ を作成"
+    if mkdir -p "$BASE/$d" 2>/dev/null; then
+      ok "$d/ を作成"
+    else
+      err "$d/ の作成に失敗（権限・iCloud 同期競合などを確認）"
+    fi
   fi
 done
 
@@ -121,8 +124,11 @@ for s in "${EXECUTABLE_SCRIPTS[@]}"; do
     if [[ -x "$BASE/$s" ]]; then
       ok "$s （実行可）"
     else
-      chmod +x "$BASE/$s"
-      ok "$s に実行権限を付与"
+      if chmod +x "$BASE/$s" 2>/dev/null; then
+        ok "$s に実行権限を付与"
+      else
+        err "$s への chmod +x が失敗（権限・FS 制約を確認）"
+      fi
     fi
   fi
 done
