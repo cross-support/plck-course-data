@@ -7,6 +7,11 @@
 
 ## 2026-04-30
 
+### Verified（実運用検証）
+
+- 別デバイスで `git clone` → `bash scripts/setup.sh` → `./tools/scripts/build_all.sh` → LMS 搭載用 ZIP 生成までの一連のフローを実機検証し、成功を確認。
+  「他メンバー・他デバイスでも同手順でセットアップ・運用できる」という当初目的を実運用で達成。
+
 ### Added
 - B_2026-03-30_PLCK_data を GitHub 管理できるように初期整備
 - `README.md` — リポジトリ全体像と入口
