@@ -1,0 +1,32 @@
+title: ChatSceneSample
+# コンテンツの中に掲載する文字列を定義します。
+# headerTextなどの変数名は自由に設定可能です。
+# HTML側でこれらの文字列を使用する場合は、{{text.[変数名]}}形式で入力してください
+text:
+  headerText: Chat Sample
+  subTitle: Second Chat
+  descriptionBody: |
+   This is Chat Page
+  listItems:
+    - list 1
+    - list 2
+    - list 3
+  prevButton: To Prev Scene.
+  nextButton: To Next Scene.
+
+# チャットの内容を定義します。
+# チャットはスレッド単位で定義できます。
+# スレッド名は自由に設定可能です。
+chat:
+  thread1:
+    - image: http://placehold.it/200x200
+      textHtml: this is chat text1 
+    - image: http://placehold.it/200x200
+      right: on
+      textHtml: this is chat text2 <strong>able to use html.</strong>
+  thread2:
+    - image: http://placehold.it/200x200
+      textHtml: this is chat text1 
+    - image: http://placehold.it/200x200
+      right: on
+      textHtml: this is chat text2 <strong>able to use html.</strong>

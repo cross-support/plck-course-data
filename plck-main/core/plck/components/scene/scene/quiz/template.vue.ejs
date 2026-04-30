@@ -1,0 +1,216 @@
+<script setup lang="ts">
+import {useQuiz} from "@corePlck/components/scene/scene/quiz/useQuiz"
+import { quizInitialized } from '<%= customHookUrl %>'
+import type {QuizConfig} from "@corePlck/components/scene/scene/quiz/quiz.type"
+import {computed, onMounted, onUnmounted} from "vue"
+import QuizQuestion from "@corePlck/components/scene/scene/quiz/Quiz/QuizQuestion.vue"
+import QuizChoiceList from "@corePlck/components/scene/scene/quiz/Quiz/QuizChoiceList.vue"
+import QuizExplanationContent from "@corePlck/components/scene/scene/quiz/Quiz/QuizExplanationContent.vue"
+import QuizResult from "@corePlck/components/scene/scene/quiz/Quiz/QuizResult.vue"
+import QuizConfirm from "@corePlck/components/scene/scene/quiz/Quiz/QuizConfirm.vue"
+import QuizText from "@corePlck/components/scene/scene/quiz/Quiz/QuizText.vue"
+import {useScene} from "@corePlck/components/scene/scene/useScene";
+import useWrapperClass from "@/components/plck/base/useWrapperClass";
+
+const config: QuizConfig = <%- JSON.stringify(config) %>
+const { sceneInitialized } = useScene("<%= name %>")
+
+const {
+    quizState,
+    currentLocaleQuiz,
+    // computed
+    questions,
+    currentQuiz,
+    answerResults,
+    currentAnswerResult,
+    currentSelectedAnswer,
+    currentQuizPassed,
+
+    isPassed,
+    isMultiple,
+    isBlockToNextWhenRetry,
+    isDoMark,
+    isLastQuestion,
+    isLastFrame,
+    isAnsweredAllQuestions,
+    quizLength,
+    shouldMark,
+    currentScore,
+    showResult,
+    showConfirm,
+    showQuiz,
+    showNextButton,
+    showConfirmButton,
+    showResultButton,
+    showAnswerButton,
+    showPrevButton,
+    showScore,
+    showPass,
+    showRetryButton,
+
+    // label
+    labelBatsu,
+    labelGuide,
+    labelButtonAnswer,
+    labelMaru,
+    labelPassed,
+    labelButtonRetry,
+    labelButtonConfirm,
+    labelButtonNext,
+    labelButtonMark,
+    labelButtonPrev,
+    labelFailure,
+    labelTableResult,
+    labelTableAnswer,
+    labelTableMaru,
+    labelTableBatsu,
+    labelConfirmTableDescription,
+    labelMarkTableDescription,
+    btnLabelNextUnit,
+    btnLabelNextScene,
+    btnLabelCloseUnit,
+    hasShowableButton,
+    // methods
+    toConfirm,
+    toResult,
+    toResultFromConfirm,
+    toQuiz,
+    answerQuestion,
+    restartQuiz,
+} = useQuiz("<%= name %>", config)
+
+
+const { sceneWrapperClass } = useWrapperClass('<%= name %>')
+
+
+onMounted(() => {
+    sceneInitialized()
+    quizInitialized()
+})
+
+onUnmounted(() => {
+
+})
+
+</script>
+<template>
+    <div id="quiz-<%= id %>" class="quiz-wrapper" :class="sceneWrapperClass">
+        <div v-if="showQuiz" class="quiz">
+
+            <quiz-question class="quiz-question-detail">
+                <template #header>{{currentLocaleQuiz.title}}</template>
+                {{currentLocaleQuiz.quiz_text}}
+            </quiz-question>
+
+            <div class="quiz-answer">
+
+
+                <div class="quiz-answer-detail">
+                    <div v-if="currentAnswerResult" :class="[ 'quiz-result-text', { 'quiz-result-text-passed': currentQuizPassed }, { 'quiz-result-text-failure': !currentQuizPassed } ]">
+                        <div v-if="currentAnswerResult.result" v-html="labelMaru"></div>
+                        <div v-else v-html="labelBatsu"></div>
+                    </div>
+                    <template v-if="currentLocaleQuiz.quiz_type === 'select'">
+                        <quiz-choice-list v-model="currentSelectedAnswer" :correct="currentLocaleQuiz.correct" :multiple="isMultiple" :choices="currentLocaleQuiz.choices" :disabled="!!currentAnswerResult" />
+                    </template>
+
+                    <template v-if="currentLocaleQuiz.quiz_type === 'text'">
+                        <div class="quiz-answer-detail-text">
+                            <quiz-text v-model="currentSelectedAnswer"  :quiz-string="currentLocaleQuiz.text" :disabled="!!currentAnswerResult" />
+                        </div>
+                    </template>
+                </div>
+
+                <template v-if="currentAnswerResult">
+                    <quiz-explanation-content>
+                        <template #header>{{labelGuide}}</template>
+                        {{currentLocaleQuiz.explanation}}
+                    </quiz-explanation-content>
+                </template>
+            </div>
+
+        </div>
+
+        <div v-if="showConfirm" class="quiz-result-wrapper">
+            <quiz-confirm
+                    :questions="questions"
+                    :answers="quizState.answers"
+                    :table-answer-label="labelTableAnswer"
+                    :explanation="labelConfirmTableDescription"
+                    @click-result="(i) => toQuiz(i)"
+            />
+
+            <div class="quiz-action">
+                <button type="button" class="btn btn-type2" @click="toResultFromConfirm">{{labelButtonMark}}</button>
+            </div>
+        </div>
+
+
+        <!--   結果画面   -->
+        <div v-if="showResult" class="quiz-result-wrapper">
+            <quiz-result
+                    :table-pass-label="labelTableMaru"
+                    :table-failure-label="labelTableBatsu"
+                    :result="isPassed"
+                    :answers="answerResults"
+                    :show-score="showScore"
+                    :show-pass="showPass"
+                    :pass-label="labelPassed"
+                    :table-answer-label="labelTableAnswer"
+                    :failure-icon-label="labelBatsu"
+                    :score="currentScore"
+                    :pass-icon-label="labelMaru"
+                    :table-result-label="labelTableResult"
+                    :failure-label="labelFailure"
+                    :questions="questions"
+                    :explanation="labelMarkTableDescription"
+                    @click-result="(i) => toQuiz(i)"
+            ></quiz-result>
+
+            <div class="quiz-action">
+                <button v-if="showRetryButton" class="btn btn-type2" @click="restartQuiz">{{labelButtonRetry}}</button>
+                <template v-if="!isBlockToNextWhenRetry">
+                    <button-next-scene class="btn-type2" v-html="btnLabelNextScene"></button-next-scene>
+                    <button-next-unit class="btn-type2" v-html="btnLabelNextUnit"></button-next-unit>
+                    <button-close-unit class="btn-type2" v-html="btnLabelCloseUnit"></button-close-unit>
+                </template>
+            </div>
+        </div>
+
+        <div v-if="showQuiz" class="quiz-footer">
+            <div class="quiz-footer-prev">
+                <button v-if="showPrevButton" type="button" class="btn" @click="toQuiz(quizState.currentQuizIndex - 1)">{{labelButtonPrev}}</button>
+            </div>
+            <div class="quiz-footer-number">{{quizState.currentQuizIndex+1}}/{{quizLength}}</div>
+            <div class="quiz-footer-next">
+                <button v-if="showNextButton" type="button" class="btn" @click="toQuiz(quizState.currentQuizIndex + 1)">{{labelButtonNext}}</button>
+                <button v-if="showAnswerButton" type="button" class="btn btn-type2" @click="answerQuestion">{{labelButtonAnswer}}</button>
+                <template v-if="isDoMark">
+                    <button v-if="showConfirmButton" type="button" class="btn btn-type2" @click="toConfirm">{{labelButtonConfirm}}</button>
+                    <button v-if="showResultButton" type="button" class="btn btn-type2" @click="toResult">{{labelButtonMark}}</button>
+                </template>
+                <template v-else-if="hasShowableButton && isLastQuestion && isAnsweredAllQuestions">
+                    <button-next-scene class="btn-type2" v-html="btnLabelNextScene"></button-next-scene>
+                    <button-next-unit class="btn-type2" v-html="btnLabelNextUnit"></button-next-unit>
+                    <button-close-unit class="btn-type2" v-html="btnLabelCloseUnit"></button-close-unit>
+                </template>
+            </div>
+        </div>
+    </div>
+</template>
+
+<style lang="scss">
+  <%
+  /*
+  CSSのスコープ作成: 他のコンポーネントに影響の内容にIDを指定し、scssを使ってスコープを作成する。
+  入力されるスタイルシートにこのスコープと同じ要素に指定されているクラスなどがある場合は、styleSheetReplacementで処理を行う
+  */
+  %>
+  #quiz-<%= id %> {
+  <%-
+    // .quiz-wrapper / .resizable-frame / .sub-frame-scene / .main-frame-scene のいずれかがスタイルシートに記述されている場合は
+    // 頭に & を付けてルート要素の同一要素指定とする
+    styleSheetReplacement(style, [ '.quiz-wrapper', '.resizable-frame', '.sub-frame-scene', '.main-frame-scene' ])
+  %>
+  }
+</style>

@@ -1,0 +1,25 @@
+import type { PLCKConfigType } from "@corePlck/config/config.type"
+import type IProseedsRepository from "@corePlck/repository/IProseedsRepository"
+
+<% if (isDev) { %>
+import Repository from "@corePlck/repository/MockProseedsRepository"
+import plckConfig from "@plck/plckConfig.ts"
+
+export default (baseUrl: string = '', version: string | number): IProseedsRepository => {
+    return new Repository({}, plckConfig)
+}
+
+<% } else { %>
+import LW2ProseedsRepository from "@corePlck/repository/LW2ProseedsRepository"
+import LW3ProseedsRepository from "@corePlck/repository/LW3ProseedsRepository"
+
+export default (parameter: any, version: string | number): IProseedsRepository => {
+    switch (version) {
+        case 2:
+        case "2":
+            return new LW2ProseedsRepository(parameter)
+        default:
+            return new LW3ProseedsRepository (parameter)
+    }
+}
+<% } %>

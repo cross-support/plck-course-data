@@ -1,0 +1,4 @@
+
+import type { PLCKConfigType } from "@corePlck/config/config.type"
+const plckConfig: PLCKConfigType = {"title":"テストタイトル<small>タグで囲われている</small>","scene_menu":"on","complete_flg_scene":"1,2,3,4,5,6,7,8","threshold_pc_smartphone":768,"display_complete_alert":"off","popup_explanation_text":"このユニットは終了です。お疲れ様でした","popup_next_unit_text":"次のユニットへ","popup_close_text":"終了する","multi_lang":"on","default_lang":"ja","label_text":"Choose your language","lang":["ja","en"],"frames":[{"main":{"name":"video-test-1","type":"video"},"sub":{"name":"video-test-2","type":"video"}}],"otherLocaleSettings":{"en":{"title":"テストタイトル<small>タグで囲われている</small>","popup_explanation_text":"このユニットは終了です。お疲れ様でした","popup_next_unit_text":"次のユニットへ","popup_close_text":"終了する","label_text":"Choose your language"}}}
+export default plckConfig

@@ -1,0 +1,324 @@
+.st-container {
+    overflow: hidden;
+    height: 100%;
+    width: 100%;
+    display: none;
+    position: fixed;
+    top: 0;
+    background-color: rgba(0,0,0,0.4);
+    z-index: 101;
+}
+
+.close_st-container a {
+    color: #FFFFFB;
+}
+
+.st-menu {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 100;
+    visibility: hidden;
+    width: 300px;
+    height: 100%;
+    background: #5c696f;
+    -webkit-transition: all 0.5s;
+    transition: all 0.2s;
+    margin-top: -1px;
+}
+
+.st-menu::after {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.2);
+    content: '';
+    opacity: 1;
+    -webkit-transition: opacity 0.5s;
+    transition: opacity 0.5s;
+}
+
+.st-menu-open .st-menu::after {
+    width: 0;
+    height: 0;
+    opacity: 0;
+    -webkit-transition: opacity 0.5s, width 0.1s 0.5s, height 0.1s 0.5s;
+    transition: opacity 0.5s, width 0.1s 0.5s, height 0.1s 0.5s;
+}
+
+/* content style */
+
+.st-menu ul {
+    padding: 0;
+    list-style: none;
+    /*height: 100%;*/
+}
+
+.st-menu h2 {
+    margin: 0;
+    padding: 1em;
+    color: rgba(0,0,0,0.4);
+    text-shadow: 0 0 1px rgba(0,0,0,0.1);
+    font-weight: 300;
+    font-size: 2em;
+}
+
+.st-menu ul li a {
+    display: block;
+    padding: 14px 12px 17px 58px;
+    outline: none;
+    -webkit-transition: background 0.3s, box-shadow 0.3s;
+    transition: background 0.3s, box-shadow 0.3s;
+}
+
+.st-menu ul li a:hover {
+    background: rgba(0,0,0,0.2);
+    box-shadow: inset 0 -1px rgba(0,0,0,0);
+    color: #fff;
+}
+
+/* Effect 1: Slide in on top */
+.st-effect-1.st-menu {
+    visibility: visible;
+    transform: translate3d(100%, 0, 0);
+}
+
+.st-effect-1.st-menu-open .st-effect-1.st-menu {
+    visibility: visible;
+    overflow-y: scroll;
+    transform: translate3d(0, 0, 0);
+}
+
+.st-effect-1.st-menu::after {
+    display: none;
+}
+
+.list_scene_menu li:nth-of-type(n).selectedMenu {
+    background-color: #E880BD;
+}
+
+.close_st-container {
+    font-size: 30px;
+    text-align: right;
+    padding: 3px 8px 0 0;
+    background-color: #5C696F;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}
+
+.close_st-container a {
+    color: #FFFFFB;
+    text-decoration: none;
+}
+
+.st-menu ul{
+    background-color: #5c696f;
+}
+.st-menu ul li{
+    position: relative;
+    max-height: 9%;
+    background-color: #fff;
+}
+
+/*背景色指定*/
+.st-menu ul li:nth-of-type(n) a{
+    color: #000000;
+}
+
+/*メニューアイコン指定*/
+.st-menu ul li a{
+    background-size: 16px !important;
+}
+
+/*表紙*/
+.st-menu ul li.selectedMenu .icon_title{
+    background-image: url(./assets/title0.png) !important;
+}
+
+.st-menu ul li:nth-of-type(n) .icon_title{
+    background: url(./assets/title.png) 37px center no-repeat;
+}
+
+.st-menu ul li.selectedMenu .icon_html{
+    background-image: url(./assets/title0.png) !important;
+}
+
+.st-menu ul li:nth-of-type(n) .icon_html{
+    background: url(./assets/title.png) 37px center no-repeat;
+}
+
+/*スライド*/
+.st-menu ul li.selectedMenu .icon_slide{
+    background-image: url(./assets/slide0.png) !important;
+}
+.st-menu ul li:nth-of-type(n) .icon_slide{
+    background: url(./assets/slide.png) 37px center no-repeat;
+}
+
+/*クイズ*/
+.st-menu ul li.selectedMenu .icon_quiz{
+    background-image: url(./assets/quiz0.png) !important;
+}
+
+.st-menu ul li:nth-of-type(n) .icon_quiz{
+    background: url(./assets/quiz.png) 37px center no-repeat;
+}
+
+/*動画*/
+.st-menu ul li.selectedMenu .icon_video{
+    /*background-image: url(./assets/video0.png) !important;*/
+    background-image: url(@frame/menu/assets/video0.png) !important;
+}
+.st-menu ul li:nth-of-type(n) .icon_video{
+    /*background: url(./assets/video.png) 37px center no-repeat;*/
+    background: url(@frame/menu/assets/video.png) 37px center no-repeat;
+}
+
+/* 会話 */
+.st-menu ul li.selectedMenu .icon_chat{
+    background-image: url(./assets/chat0.png) !important;
+}
+.st-menu ul li:nth-of-type(n) .icon_chat{
+    background: url(./assets/chat.png) 37px center no-repeat;
+}
+
+.st-menu ul li a{
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.st-menu ul li.selectedMenu a{
+    color: #FFF !important;
+}
+
+.mPageCtrl{
+    width: 100%;
+    text-align: center;
+    vertical-align: middle;
+    margin-top: 10px;
+}
+
+.mPageCtrl button{
+    display: inline-block;
+    margin:0;
+    padding:0;
+    width: 30px;
+    height: 30px;
+    background-color: #5C696F;
+    outline: none;
+    text-decoration: none;
+    box-shadow : none;
+    border-style: none;
+    vertical-align: middle;
+}
+
+.mPageCtrl img{
+    width: 30px;
+    height: 30px;
+}
+
+.mPageCtrl span{
+    margin: 0 10px;
+    font-size: 18px;
+    color: #fff;
+}
+
+.mPageCtrl button:disabled{
+    opacity: 0.3;
+}
+
+
+.list_scene_menu li a{
+    text-decoration: none;
+}
+
+.list_scene_menu img {
+    width: 16px;
+    margin: 0 8px 0 2px;
+}
+
+.checkComplete::after {
+    left: 5px;
+    width: 20px;
+    height: 20px;
+    -ms-transform:rotate(-45deg);
+    transform: rotate(-45deg);
+    background: url(./assets/icon_scene.png) center center no-repeat;
+    background-size: contain;
+}
+
+.checkComplete::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    box-sizing: border-box;
+    display: block;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+.hoverOpacity:hover{
+    opacity: 0.8;
+    -moz-opacity: 0.8;
+    filter: alpha(opacity=80);
+    -ms-filter: alpha(opacity=80);
+}
+
+
+@media (max-width: 768px) {
+
+    /*シーン遷移メニュー*/
+    .list_scene_menu li a{
+        text-decoration: none;
+        font-size: 14px;
+    }
+    .list_scene_menu img {
+        width: 16px;
+        margin: 0 4px 0 2px;
+    }
+    .mPageCtrl{
+        position: absolute;
+        width: 100%;
+        text-align: center;
+        vertical-align: middle;
+        margin-top: 10px;
+    }
+    .mPageCtrl button{
+        display: inline-block;
+        margin:0;
+        padding:0;
+        width: 30px;
+        height: 30px;
+        background-color: #5C696F;
+        outline: none;
+        text-decoration: none;
+        box-shadow : none;
+        border-style: none;
+    }
+    .mPageCtrl img{
+        width: 30px;
+        height: 30px;
+    }
+    .mPageCtrl span{
+        margin: 0 10px;
+        font-size: 18px;
+        color: #fff;
+    }
+    .checkComplete::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 5px;
+        width: 20px;
+        height: 20px;
+        box-sizing: border-box;
+        display: block;
+        -ms-transform: translateY(-50%);
+        transform: translateY(-50%);
+        background: url(./assets/icon_scene.png) center center no-repeat;
+        background-size: contain;
+    }
+}

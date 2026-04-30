@@ -1,0 +1,72 @@
+<script setup lang="ts">
+import {onMounted, onUnmounted} from 'vue'
+import { videoInitialized } from '<%= customHookUrl %>'
+import type {VideoConfig} from "@corePlck/components/scene/scene/video/video.type";
+import {useVideo} from "@corePlck/components/scene/scene/video/useVideo";
+import {useScene} from "@corePlck/components/scene/scene/useScene";
+
+const config: VideoConfig = <%- JSON.stringify(config) %>;
+
+const { sceneInitialized } = useScene('<%= name %>')
+const {
+   videoStyle,
+   videoUrl,
+   videoFrame,
+   btnLabelNextScene,
+   btnLabelCloseUnit,
+   btnLabelNextUnit,
+   hasShowableButton,
+   isCompleted,
+   hasNextUnit,
+   hasNextScene,
+   isLastFrame,
+   componentOnMounted,
+   componentOnUnmounted,
+   onNextUnitButtonClicked,
+   onNextSceneButtonClicked,
+   onIframeLoaded
+} = useVideo(config, '<%= name %>', videoInitialized)
+
+
+
+onMounted(async () => {
+   await sceneInitialized()
+   componentOnMounted()
+})
+
+onUnmounted(() => {
+   componentOnUnmounted()
+})
+
+</script>
+<template>
+   <div class="type_video" id="video-<%= id %>">
+      <!--動画表示領域-->
+      <div id="video_cover"></div>
+      <div id="type_video_movie" :style="videoStyle">
+         <iframe ref="videoFrame" allowfullscreen scrolling="no" :src="videoUrl" @load="onIframeLoaded"></iframe>
+      </div>
+
+      <div class="video_button_area">
+         <!-- 次のシーンボタン -->
+         <div v-if="hasShowableButton && isCompleted && hasNextScene" class="video_button" id="video_next_scene">
+            <button-next-scene v-html="btnLabelNextScene"></button-next-scene>
+         </div>
+
+         <!-- 次のユニットへボタン -->
+         <div v-if="hasShowableButton && isLastFrame && hasNextUnit" class="video_button" id="video_next_unit">
+            <button-next-unit v-html="btnLabelNextUnit"></button-next-unit>
+         </div>
+
+         <!-- 終了ボタン -->
+         <div v-if="hasShowableButton && isLastFrame && isCompleted" class="video_button" id="video_end_unit">
+            <button-close-unit v-html="btnLabelCloseUnit"></button-close-unit>
+         </div>
+      </div>
+   </div>
+</template>
+<style lang="scss">
+#video-<%= id %> {
+   <%- styleSheetReplacement(style, [ '.type_video', '.resizable-frame', '.main-frame-scene', '.sub-frame-scene' ]) %>
+}
+</style>

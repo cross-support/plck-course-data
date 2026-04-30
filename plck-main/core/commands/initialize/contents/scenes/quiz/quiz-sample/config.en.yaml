@@ -1,0 +1,34 @@
+title: quiz
+retry_btn_name: retry quiz
+btn_answer_name: answer
+btn_confirm_name: to cofirm
+btn_mark_name: to mark
+btn_next_name: to next
+btn_prev_name: to prev
+btn_next_unit_name: to next unit
+btn_next_scene_name: to next scene
+maru_text: ○
+batsu_text: ×
+passed_text: passed
+failure_text: failure
+table_result_text: result
+table_answer_text: answer
+table_maru_text: ○
+table_batsu_text: ×
+confirm_table_description_text: ※ some description for confirm
+mark_table_description_text: ※ some description for mark
+guide_pretext: 解説
+
+# クイズ
+questions:
+  - quiz_type: select
+    alternatively: single
+    title: No.1
+    quiz_text: quiz text
+    choices:
+      - select1
+      - select2
+      - select3
+      - select4
+    correct: 4
+    explanation: explanation

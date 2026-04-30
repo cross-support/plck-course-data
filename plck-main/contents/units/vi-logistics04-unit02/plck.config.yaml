@@ -1,0 +1,17 @@
+title: Dễ hiểu! Nhập môn Logistics Ⅳ UNIT2
+default_lang: vi
+display_complete_alert: off
+complete_flg_scene:
+scene_menu: on
+multi_lang: on
+popup_explanation_text: Đơn vị này đã hoàn thành. Cảm ơn bạn đã chăm chỉ.
+popup_next_unit_text: Đơn vị tiếp theo
+popup_close_text: Đóng
+label_text: Chọn ngôn ngữ
+lang:
+  - vi
+  - ja
+frames:
+  - main:
+      name: vi-logistics04-unit02
+      type: slide

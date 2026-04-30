@@ -1,0 +1,4 @@
+SystemError: 不明なエラーです。
+NoRequiredParameter: 必要なパラメーターがありません。
+InvalidVersion: LWのバージョンの指定は1、2、3いずれかを選択してください（ex:・・.html?LW=1）。
+BrowserNotArrowed: お使いのブラウザは動作環境ではございません。<br />お手数ですが、最新のブラウザをインストールするか、別のブラウザをご使用ください。<br /><a href="javascript:void(0)" onclick="window.open('source/html/kankyo_check.html')">動作環境</a>

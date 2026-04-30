@@ -1,0 +1,129 @@
+/*動画シーンの領域*/
+.type_video{
+    overflow: hidden;
+    /*background-color: #cccccc;*/
+    width: 100%;
+    height: 100%;
+}
+
+/*動画*/
+div#type_video_movie iframe{
+    width: 100%;
+    height: 100%;
+}
+#type_video_text img {
+    max-width: 100%;
+}
+
+
+/*次のユニットへボタン*/
+.video_button .btn {
+    width: 100%;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /*font-size: 1.4em;*/
+    font-size: 20px;
+    color: #FFF;
+    border: none;
+    background-color: #EE0077;
+    box-shadow: 1px 2px #EE0077;
+    border-radius: 5px;
+    padding: 0;
+}
+
+.video_button .btn a {
+    padding-top: 7px;
+}
+
+.video_button .btn:hover {
+    color: #fff;
+    text-decoration: none;
+    background-color: #a50153;
+    box-shadow: 1px 2px #a50153;
+}
+
+/*ボタンアクティブ時*/
+.video_button .btn:active {
+    /*padding-top: 4px !important;*/
+}
+
+/*--------- PC版 ---------*/
+@media (min-width: 769px) {
+
+    /*動画領域*/
+    #type_video_movie{
+        width: 100%;
+        border: 0px;
+        height: calc(90% - 100px);
+    }
+
+    #type_video_movie iframe{
+        width: 960px;
+        height:480px;
+    }
+
+    #video_cover{
+        position: absolute;
+        display: none;
+    }
+
+    .video_button_area {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 16px;
+    }
+
+    .video_button {
+        width: 240px;
+        bottom: 10%;
+    }
+
+    .video_button .btn {
+        margin: 20px auto 0 auto;
+    }
+
+}
+/*--------- スマホ版 ---------*/
+@media (max-width: 768px) {
+    /*動画領域*/
+    #type_video_movie{
+        width: 100%;
+        border: 0px;
+        height: calc(90% - 100px);
+    }
+
+    #type_video_movie iframe{
+        min-height:219px;
+    }
+
+    #resize_frame{
+        display:none;
+    }
+    .slide_page .page_number{
+        font-size: 24px;
+    }
+
+    .video_button {
+        width: 50%;
+        margin: 10px auto;
+    }
+
+    .video_button .btn {
+        margin: 0 auto;
+        position: relative;
+    }
+
+}
+@media (max-height: 410px) {
+
+    .video_button .btn {
+        height: 45px;
+        line-height: 45px;
+        font-size: 1.3em;
+    }
+
+}
+

@@ -1,0 +1,35 @@
+title: テストタイトル<small>タグで囲われている更新されるかテスト</small>
+default_lang: ja
+display_complete_alert: off
+complete_flg_scene:
+scene_menu: on
+multi_lang: on
+popup_explanation_text: このユニットは終了です。お疲れ様でした
+popup_next_unit_text: 次のユニットへ
+popup_close_text: 終了する
+label_text: 言語を選択してください
+lang:
+  - ja
+  - en
+frames:
+  - main:
+      name: html-sample
+      type: html
+  - main:
+      name: chat-sample
+      type: chat
+  - main:
+      name: slide-sample
+      type: slide
+  - main:
+      name: quiz-sample
+      type: quiz
+  - main:
+      name: video-sample
+      type: video
+  - main:
+      name: chat-sample-main
+      type: chat
+    sub:
+      name: quiz-sample-sub
+      type: quiz

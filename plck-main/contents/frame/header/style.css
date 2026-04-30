@@ -1,0 +1,71 @@
+/*ヘッダー（日本語版デザインに統一）*/
+.frame-header{
+    background-color: #717d85;
+    height: 10%;
+    min-height: 100px;
+    min-width: 0;
+    position: relative;
+    border-bottom: solid 4px #98c9b2;
+    margin-bottom: -4px;
+    display: flex;
+    align-items: center;
+    z-index: 10;
+    gap: 16px;
+}
+
+/* 完了アイコン（★マーク）非表示 */
+.frame-header.complete_icon #scene_title .scene_title_sub{
+    background: none;
+    padding-left: 0;
+}
+
+/* ハンバーガーメニュー非表示 */
+.frame-header #scene_menu_btn{
+    display: none;
+}
+
+/*ユニットタイトル（1行表示）*/
+#scene_title{
+    font-weight: bold;
+    overflow: hidden;
+    color: #ffffff;
+    padding-top: 1%;
+    padding-left: 1%;
+    padding-bottom: 1%;
+    flex: 1;
+}
+
+#scene_title .scene_title_main{
+    font-size: 1.5em;
+    display: inline-block;
+    margin-top: 3px;
+    color: #ffffff;
+}
+
+/* サブタイトル（重複表示）を非表示にして1行統一 */
+#scene_title br{
+    display: none;
+}
+#scene_title .scene_title_sub{
+    display: none;
+}
+
+#st-trigger-effects {
+    height: 100%;
+}
+
+@media (max-width: 768px) {
+    /*ヘッダー*/
+    .frame-header{
+        height: 9%;
+        min-height: 80px;
+    }
+
+    #scene_title .scene_title_main{
+        width: 100%;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        font-size: inherit;
+    }
+}

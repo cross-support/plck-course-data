@@ -1,0 +1,8 @@
+title: シーンのタイトルが入ります
+complete_on_scroll_end: off
+text:
+  text_html: HTMLがここに入ります。<br />HTMLをいれる場合は、v-htmlを使って挿入してください。
+  list_item1: リストの項目その1
+  list_item2: リストの項目その2
+  prev_button: 前のシーンへ<strong>HTMLも入れれます</strong>
+  next_button: 次のシーンへ

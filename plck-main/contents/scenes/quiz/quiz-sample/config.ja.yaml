@@ -1,0 +1,89 @@
+title: クイズ
+questions_type: Q&A
+domark: on
+display_pass: on
+display_score: on
+retry: on
+retry_btn_name: 再度クイズに挑戦する
+block_next_when_retry: off
+passing_mark: 100
+btn_answer_name: 回答
+btn_confirm_name: 確認画面へ
+btn_mark_name: 結果画面へ
+btn_next_name: 次の問題へ
+btn_prev_name: 前の問題へ
+btn_next_unit_name: 次のユニットへ
+btn_next_scene_name: 次のシーンへ
+maru_text: 〇
+batsu_text: ×
+passed_text: 合格
+failure_text: 不合格
+table_result_text: 結果
+table_answer_text: 回答
+table_maru_text: 正解
+table_batsu_text: 不正解
+confirm_table_description_text: ※問題を選択するとその問題の解答結果を確認できます。
+mark_table_description_text: ※問題を選択するとその問題の解答結果を確認できます。
+guide_pretext: 解説
+
+# クイズ
+questions:
+  - quiz_type: select
+    alternatively: single
+    title: 第1問
+    quiz_text: 問題文を入力してください
+    choices:
+      - 選択肢1
+      - 選択肢2
+      - 選択肢3
+      - 選択肢4
+    correct: 4
+    explanation: 解説文を入力してください
+  - quiz_type: text
+    alternatively: multiple
+    title: 第4問
+    quiz_text: 問題文を入力してください。その3
+    text: |
+      %input[0]% を入力する<br />
+      %input[1]% も入力する<br />
+      こんにちは<br />
+      よろしくお願いします。
+    correct:
+      - 文字列1
+      - 文字列2
+    explanation: 解説文を入力してください。その3
+  - quiz_type: text
+    alternatively: single
+    title: 第4問
+    quiz_text: 問題文を入力してください。その3
+    text: |
+      %input% を入力する<br />
+      こんにちは
+    correct: 文字列
+    explanation: 解説文を入力してください。その3
+  - quiz_type: select
+    alternatively: single
+    title: 第2問
+    quiz_text: 問題文を入力してください。その2
+    choices:
+      - 選択肢21
+      - 選択肢22
+      - 選択肢23
+      - 選択肢24
+    correct: 3
+    explanation: 解説文を入力してください。その3
+  - quiz_type: select
+    alternatively: multiple
+    title: 第3問
+    quiz_text: 問題文を入力してください。その3
+    choices:
+      - 選択肢31
+      - 選択肢32
+      - 選択肢33
+      - 選択肢34
+    correct:
+      - 3
+      - 2
+    explanation: 解説文を入力してください。その3
+
+

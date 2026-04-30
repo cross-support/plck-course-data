@@ -1,0 +1,58 @@
+<% if(!config.full_template) { %>
+<script setup lang="ts">
+import {onMounted, onUnmounted} from 'vue'
+import { useScrollComplete } from "@/components/plck/base/useScrollComplete";
+import { onMount as _onMount, onUnmount as _onUnmount } from "<%- customHookUrl %>"
+import {useI18n} from "vue-i18n";
+import {useHtml} from "@corePlck/components/scene/scene/html/useHtml";
+
+const { t } = useI18n()
+const completeOnScrollEnd = <%- config.complete_on_scroll_end === 'on' ? 'true' : 'false' %>;
+const { onScrollComplete, clearScrollComplete } = useScrollComplete()
+
+const chatKeys = <%- config.chat ? JSON.stringify(config.chat) : 'null' %>
+const textKeys = <%- config.text ? JSON.stringify(config.text) : 'null' %>
+
+const {
+    chat,
+    text,
+    isCurrentCompleteOnShow,
+    toCompeteCurrentScene,
+    toNotCompeteCurrentScene,
+    isSubScene,
+    isMainScene,
+    changeSceneCompleteState
+} = useHtml('<%= name %>', chatKeys, textKeys)
+
+let targetElem: any = null
+
+
+onMounted(() => {
+    _onMount(toCompeteCurrentScene, toNotCompeteCurrentScene)
+    if (isCurrentCompleteOnShow) {
+        toCompeteCurrentScene()
+    } else {
+        const target: any = (() => {
+            if (document.querySelector('.talk-list')) return document.querySelector('#wrapper')
+            return document.querySelector('.resizable-frame-side.main') || document.querySelector('body')
+        })()
+        targetElem = target
+        if (completeOnScrollEnd) {
+            onScrollComplete(target)
+        }
+    }
+})
+
+onUnmounted(() => {
+    _onUnmount()
+    if (!isCurrentCompleteOnShow) {
+        if (completeOnScrollEnd) {
+            clearScrollComplete(targetElem)
+        }
+    }
+})
+
+</script>
+<% }  %>
+
+<%- html %>

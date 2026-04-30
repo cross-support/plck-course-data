@@ -1,0 +1,12 @@
+{"event":"task_completed","teammate":"1","task_id":"dist をクリーンして全ユニット再ビルド","subject":"plck-main/dist/ 配下を削除 → npx plck build で24UNIT再生成","description":"","timestamp":"2026-04-21T04:59:37Z"}
+{"event":"task_completed","teammate":"2","task_id":"24本のZIPを.gitkeep除外で再作成・再配置","subject":".gitkeep とimg/ 空ディレクトリの扱いも含め、各講座フォルダの LMS搭載用ZIP/ に置き直す","description":"","timestamp":"2026-04-21T05:00:07Z"}
+{"event":"task_completed","teammate":"3","task_id":"再生成ZIPの内部構造を検証","subject":"1つ抜き取り、index.html の参照先JS/CSSだけが含まれているか・余計なものが無いかを確認","description":"","timestamp":"2026-04-21T05:00:43Z"}
+{"event":"task_completed","teammate":"4","task_id":"plck-main素材を正PNGで上書き（24UNIT）","subject":"講座セットフォルダ/**/UNIT{1..3}/スライド{N}.png を plck-main/contents/scenes/slide/{unit_id}/slide/{N}.png にコピー","description":"","timestamp":"2026-04-21T05:51:02Z"}
+{"event":"task_completed","teammate":"5","task_id":"dist再ビルド＋24ZIP再作成＋検証","subject":"dist削除→npx plck build→ZIP再生成→新dist PNGが元PNGとハッシュ一致することを確認","description":"","timestamp":"2026-04-21T05:53:32Z"}
+{"event":"task_completed","teammate":"6","task_id":"LMS_BUILD_RULES.md と CLAUDE.md に恒久ルール追記","subject":"Meiryo→Arial置換の中国語禁則・PNG三点ハッシュ検証必須・元PNG同期など恒久仕様を明文化","description":"","timestamp":"2026-04-21T05:56:17Z"}
+{"event":"task_completed","teammate":"7","task_id":"preflight.sh: ビルド前ハッシュ照合＋中国語禁則チェック","subject":"元PNG⇔plck入力PNGのSHA-256差分検出、zh-*講座での置換痕跡/pptx混入検出","description":"","timestamp":"2026-04-21T06:43:22Z"}
+{"event":"task_completed","teammate":"8","task_id":"verify_zip.sh: ZIP構造＆参照整合性チェック","subject":"index.htmlルート直下/参照JS・CSSの実在/累積重複ゼロ/macOSメタ無混入を検証","description":"","timestamp":"2026-04-21T06:43:59Z"}
+{"event":"task_completed","teammate":"9","task_id":"build_all.sh: 事前チェック→ビルド→ZIP→検証の一本化","subject":"preflight → rm -rf dist → npx plck build → 24本ZIP生成 → verify_zip連鎖実行","description":"","timestamp":"2026-04-21T06:49:22Z"}
+{"event":"task_completed","teammate":"10","task_id":"LMS_BUILD_RULES.md 言語別表・目視ポイント・手順一本化を追記","subject":"言語別許可/禁止表、目視必須スライド、新ビルド1本化手順、CLAUDE.md導線更新","description":"","timestamp":"2026-04-21T06:51:14Z"}
+{"event":"task_completed","teammate":"4","task_id":"vi-logistics03-unit01 を再ビルドしZIP差し替え","subject":"preflight → clean build → vi_logistics03_unit01.zip のみ再生成 → verify_zip","description":"","timestamp":"2026-04-22T23:54:45Z"}
+{"event":"task_completed","teammate":"5","task_id":"反映確認と旧データ整理","subject":"ZIP内PNGのSHA照合、差し替え元フォルダの処遇、不要ファイル整理を確認","description":"","timestamp":"2026-04-22T23:55:09Z"}

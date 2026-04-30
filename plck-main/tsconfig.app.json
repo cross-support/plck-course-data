@@ -1,0 +1,31 @@
+{
+  "extends": "@vue/tsconfig/tsconfig.dom.json",
+  "include": [
+    "env.d.ts",
+    "core/*",
+    "core/**/*",
+    "core/**/*.vue",
+  ],
+  "exclude": [
+    ".plck/**/*",
+    ".plck/**/*.vue",
+    "core/src/**/__tests__/*",
+    "core/test/*",
+    "contents/scenes/**/*",
+    "core/**/html.vue"
+  ],
+  "compilerOptions": {
+    "strict": false,
+    "composite": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./core/src/*"],
+      "@plck/*": ["./.plck/*"],
+      "@corePlck/*": ["./core/plck/*"],
+      "vue-runtime": ["vue/dist/vue.esm-bundler.js"]
+    },
+    "verbatimModuleSyntax": false,
+    "allowJs": true,
+    "allowImportingTsExtensions": true
+  }
+}

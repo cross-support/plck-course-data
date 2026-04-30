@@ -1,0 +1,87 @@
+# =============================================================================
+# .gitignore — plck-course-data
+#
+# 方針: 「ソース管理のみ」（スクリプト/ドキュメント/plck-main ソース）
+#   - 講座素材（PNG/PPTX/PDF/ZIP）と node_modules/dist は対象外
+#   - 講座素材は Google Drive 等で別配布する（README 参照）
+#   - LMS 搭載用 ZIP も Git 管理しない（容量と再生成可能性の観点）
+# =============================================================================
+
+# --- OS / Editor ---
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+.idea/
+.vscode/
+
+# --- ClaudeCode ハーネス（セッション固有データ） ---
+.claude/sessions/
+.claude/logs/
+.claude/memory/
+.claude/agent-memory/
+.claude/state/
+.claude/settings.local.json
+.claude/.DS_Store
+# プロジェクト共有が必要な settings.json などは個別に許可
+# !.claude/settings.json
+
+# --- 認証・環境変数 ---
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+
+# --- ログ・一時ファイル ---
+logs/
+*.log
+tmp/
+temp/
+.cache/
+
+# --- 失敗作・アーカイブ ---
+failed/
+archive/failed/
+**/【旧・*失敗版】/
+**/_archive/
+
+# --- Node ---
+node_modules/
+plck-main/node_modules/
+.npm/
+.yarn/
+yarn-error.log
+
+# --- ビルド成果物 ---
+plck-main/dist/
+dist/
+build/
+out/
+
+# --- Python（スクリプトで使う場合） ---
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+.pytest_cache/
+
+# =============================================================================
+# 講座素材（巨大バイナリ。Git 管理対象外。Google Drive 等で別配布）
+# =============================================================================
+講座セットフォルダ/
+
+# 念のためトップレベル直下の素材も除外（誤配置対策）
+/*.pptx
+/*.pdf
+/PLCKコンテンツ開発（インストと進め方）.docx
+
+# プロジェクト全体での素材ファイル除外
+**/*.pptx
+**/*.zip
+# PNG はビルドプロセスで scenes/slide/* に置かれる作業ファイル
+plck-main/contents/scenes/slide/*/slide/*.png
+
+# スクリプト/ドキュメント由来の小さな図・スクショは許可したいので個別に除外解除する場合は
+# !docs/img/*.png のように明示的に追加すること

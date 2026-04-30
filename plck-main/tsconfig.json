@@ -1,0 +1,22 @@
+{
+  "files": [],
+  "compilerOptions": {
+    "paths": {
+      "@/*": ["./core/src/*"],
+      "@plck/*": ["./.plck/*"],
+      "@corePlck/*": ["./core/plck/*"],
+      "@frame/*": ["./frame/*"],
+      "@scenes/*": ["./scenes/*"],
+      "vue-runtime": ["./node_modules/vue/dist/vue.esm-bundler.js"]
+    },
+    "verbatimModuleSyntax": false
+  },
+  "references": [
+    {
+      "path": "./tsconfig.node.json"
+    },
+    {
+      "path": "./tsconfig.app.json"
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "include": [
+      ".plck/**/*"
+    ],
+    "paths": {
+      "@/*": ["core/src/*"],
+      "@plck/*": [".plck/*"],
+      "@corePlck/*": ["./core/plck/*"],
+      "@frame/*": ["./frame/*"],
+      "@scenes/*": ["./scenes/*"],
+      "vue-runtime": ["vue/dist/vue.esm-bundler.js"]
+    }
+  }
+}

@@ -1,0 +1,41 @@
+title: クイズ
+questions_type: Q&A
+domark: on
+display_pass: on
+display_score: off
+retry: on
+retry_btn_name: 再度クイズに挑戦する
+block_next_when_retry: off
+passing_mark: 100
+btn_answer_name: 回答
+btn_confirm_name: 確認画面へ
+btn_mark_name: 結果画面へ
+btn_next_name: 次の問題へ
+btn_prev_name: 前の問題へ
+btn_next_unit_name: 次のユニットへ
+btn_next_scene_name: 次のシーンへ
+maru_text: ○
+batsu_text: ×
+passed_text: 合格
+failure_text: 不合格
+table_result_text: 結果
+table_answer_text: 回答
+table_maru_text: ○
+table_batsu_text: ×
+confirm_table_description_text: ※問題を選択するとその問題の解答結果を確認できます。
+mark_table_description_text: ※問題を選択するとその問題の解答結果を確認できます。
+guide_pretext: 解説
+
+# クイズ
+questions:
+  - quiz_type: select
+    alternatively: single
+    title: 第1問
+    quiz_text: 問題文を入力してください
+    choices:
+      - 選択肢1
+      - 選択肢2
+      - 選択肢3
+      - 選択肢4
+    correct: 4
+    explanation: 解説文を入力してください

@@ -1,0 +1,9 @@
+title: スライドシーンタイトル
+btn_next_scene_name: 次へ
+slide_speed: 10
+img:
+  - "@scenes/slide/slide/5-01.png"
+  - "@scenes/slide/slide/5-02.png"
+  - "@scenes/slide/slide/5-03.png"
+  - "@scenes/slide/slide/5-04.png"
+  - "@scenes/slide/slide/5-05.png"

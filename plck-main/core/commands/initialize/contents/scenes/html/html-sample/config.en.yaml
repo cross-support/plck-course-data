@@ -1,0 +1,8 @@
+title: HTML Scene Sample
+complete_on_scroll_end: on
+text:
+  text_html: HTML String.<br />Use v-html directive when use HTML String.
+  list_item1: List Item1
+  list_item2: Lite Item2
+  prev_button: To Preview Scene
+  next_button: To Next Scene

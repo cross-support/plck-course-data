@@ -1,0 +1,12 @@
+<script setup>
+</script>
+<template>
+    <plck-frame>
+        <<%= mainSceneComponentName %> />
+        <% if (subSceneComponentName !== undefined) { %>
+            <template v-slot:subScene>
+                <<%= subSceneComponentName %> />
+            </template>
+        <% } %>
+    </plck-frame>
+</template>

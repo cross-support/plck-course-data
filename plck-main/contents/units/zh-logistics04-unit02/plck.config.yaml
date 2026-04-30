@@ -1,0 +1,17 @@
+title: 轻松理解！物流入门Ⅳ UNIT2
+default_lang: zh
+display_complete_alert: off
+complete_flg_scene:
+scene_menu: on
+multi_lang: on
+popup_explanation_text: 本单元已完成。辛苦了。
+popup_next_unit_text: 下一单元
+popup_close_text: 关闭
+label_text: 请选择语言
+lang:
+  - zh
+  - ja
+frames:
+  - main:
+      name: zh-logistics04-unit02
+      type: slide

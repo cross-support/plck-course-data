@@ -1,0 +1,63 @@
+import { createApp } from 'vue'
+import { createI18n } from 'vue-i18n'
+import App from '@/App.vue'
+import router from '@/router'
+import PlckFrame from '@/components/plck/PlckFrame/PlckFrame.vue'
+import messages from '@plck/i18n.js'
+import plckPlugin from '@/plugins/PlckPlugin.ts'
+import TalkSerif from '@/components/plck/base/TalkSerif.vue'
+import TalkContext from '@/components/plck/base/TalkContext.vue'
+import BaseInput from "@/components/plck/base/form/BaseInput.vue"
+import ButtonPrevScene from "@/components/plck/base/ButtonPrevScene.vue"
+import ButtonNextScene from "@/components/plck/base/ButtonNextScene.vue"
+import ButtonNextUnit from "@/components/plck/base/ButtonNextUnit.vue"
+import ButtonCloseUnit from "@/components/plck/base/ButtonCloseUnit.vue"
+
+// スタイルシートの読み込み
+import '@scenes/common.css'
+import '@/assets/css/normalize.css'
+import '@/assets/css/common.css'
+import '@/assets/css/component.css'
+import 'aos/dist/aos.css'
+import '@frame/unit-done-dialog/style.css'
+
+<% frames.forEach(frame => {  %>
+import <%= frame.main.scene.componentName().value() %> from '@plck/<%= frame.main.scene.pathName() %>'
+<% if (frame.sub) { %>import <%= frame.sub.scene.componentName().value() %> from '@plck/<%= frame.sub.scene.pathName() %>'<% } %>
+import <%= frame.frameComponent.name.value() %> from '@plck/<%= frame.frameComponent.path %>'
+<% }) %>
+
+const i18n = createI18n({
+    legacy: false,
+    locale: '<%= config.default_lang %>',
+    fallbackLocale: '<%= config.default_lang %>',
+    messages,
+})
+
+const app = createApp(App)
+app.use(i18n)
+app.use(plckPlugin)
+
+app.component('PlckFrame', PlckFrame)
+app.component('TalkSerif', TalkSerif)
+app.component('TalkContext', TalkContext)
+app.component('BaseInput', BaseInput)
+app.component('ButtonPrevScene', ButtonPrevScene)
+app.component('ButtonNextScene', ButtonNextScene)
+app.component('ButtonNextUnit', ButtonNextUnit)
+app.component('ButtonCloseUnit', ButtonCloseUnit)
+<% frames.forEach(frame => { %>
+app.component('<%= frame.main.scene.componentName().value() %>', <%= frame.main.scene.componentName().value() %>)
+app.component('<%= frame.frameComponent.name.value() %>', <%= frame.frameComponent.name.value() %>)
+<% if (frame.sub) { %>app.component('<%= frame.sub.scene.componentName().value() %>', <%= frame.sub.scene.componentName().value() %>)<% } %>
+<% }) %>
+
+<% if (process.env.NODE_ENV === 'development') { %>
+import mockRouterPlugin from '@/router/mockRouterPlugin.js'
+app.use(router(app, i18n, mockRouterPlugin))
+<% } else { %>
+app.use(router(app, i18n))
+<% } %>
+
+
+export default app

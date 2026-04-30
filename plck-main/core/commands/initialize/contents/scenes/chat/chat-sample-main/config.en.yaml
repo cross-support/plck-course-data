@@ -1,0 +1,37 @@
+title: チャットシーンサンプル
+
+# コンテンツの中に掲載する文字列を定義します。
+# headerTextなどの変数名は自由に設定可能です。
+# HTML側でこれらの文字列を使用する場合は、{{text.[変数名]}}形式で入力してください
+text:
+  headerText: チャット形式のページです
+  subTitle: 2つ目のチャット
+  descriptionBody: |
+    チャット形式のページです。<br />
+    使用方法はHTML形式のシーンと同等の使用方法です
+  listItem1: リスト1
+  listItem2: リスト2
+  listItem3: リスト3
+  listItems:
+    - リスト1
+    - リスト2
+    - リスト3
+  prevButton: 前のシーン
+  nextButton: 次のシーン
+
+# チャットの内容を定義します。
+# チャットはスレッド単位で定義できます。
+# スレッド名は自由に設定可能です。
+chat:
+  thread1:
+    - image: http://placehold.it/200x200
+      textHtml: ここにチャットの文章を入力
+    - image: http://placehold.it/200x200
+      right: on
+      textHtml: ここにチャットの文章を入力<strong>HTMLも使用可能です</strong>
+  thread2:
+    - image: http://placehold.it/200x200
+      textHtml: ここにチャットの文章を入力
+    - image: http://placehold.it/200x200
+      right: on
+      textHtml: ここにチャットの文章を入力<strong>HTMLも使用可能です</strong>

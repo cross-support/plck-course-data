@@ -1,0 +1,11 @@
+title: シーンのタイトルが入ります
+complete_on_scroll_end: on
+# コンテンツの中に掲載する文字列を定義します。
+# headerTextなどの変数名は自由に設定可能です。
+# HTML側でこれらの文字列を使用する場合は、{{text.[変数名]}}形式で入力してください
+text:
+  text_html: HTMLがここに入ります。<br />HTMLをいれる場合は、v-htmlを使って挿入してください。
+  list_item1: リストの項目その1
+  list_item2: リストの項目その2
+  prev_button: 前のシーンへ<strong>HTMLも入れれます</strong>
+  next_button: 次のシーンへ

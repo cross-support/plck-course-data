@@ -1,0 +1,321 @@
+<script setup lang="ts">
+import {computed, onMounted, ref, nextTick, onUnmounted, watch} from "vue";
+import { Swiper, SwiperSlide } from "swiper/vue";
+import { useI18n } from "vue-i18n";
+import { usePlckStore } from "@/store/plck";
+import 'swiper/css'
+import {storeToRefs} from "pinia";
+import {useScene} from "@corePlck/components/scene/scene/useScene";
+import useSpecificButton from "@/components/plck/base/useSpecificButton";
+
+<% Object.keys(slides).forEach((locale) => {
+   const img = slides[locale]
+   img.forEach((imgUrl, i) => {
+%>
+import <%= locale %>_img_<%= i %> from "<%- imgUrl %>";
+<%
+   })
+}) %>
+
+const slides = {
+<% Object.keys(slides).forEach((locale) => {
+%>"<%- locale %>": [<%
+const img = slides[locale]
+img.forEach((imgUrl, i) => {
+%><%= locale %>_img_<%= i %>,<%
+})
+%>],<%
+}) %>
+}
+
+// i18n
+const { locale, t } = useI18n()
+
+const sceneName = '<%= name %>'
+const { isSubScene, toCompeteCurrentScene, toNextScene, toNextUnit, isLastFrame, isAllSceneCompleted } = usePlckStore()
+const { btnLabelNextScene, btnLabelCloseUnit, btnLabelNextUnit, hasShowableButton } = useSpecificButton('<%= name %>')
+const { isComboFrame, isCurrentCompleteOnShow } = storeToRefs(usePlckStore())
+const { sceneInitialized } = useScene(sceneName)
+
+/**
+ * 言語設定に応じた対象のスライドを取得
+ */
+const targetSlides = computed(() => {
+   return slides[locale.value]
+})
+
+/**
+ * Swiperを格納
+ */
+const swiperObj = ref(null)
+
+/**
+ * Swiperオブジェクトの初期処理
+ * @param _swiper
+ */
+const onSwiper = (_swiper) => {
+   console.log(_swiper)
+   swiperObj.value = _swiper
+}
+
+/**
+ * 現在表示されているスライドのインデックス
+ */
+const currentIndex = computed(() => {
+   if (swiperObj.value) {
+      return swiperObj.value.activeIndex
+   }
+   return 0
+})
+
+const sliderLastIndex = computed(() => {
+   if (swiperObj.value) {
+      return swiperObj.value.slides.length - 1
+   }
+   return 0
+})
+
+/**
+ * 前のスライドがあるかどうか
+ */
+const hasPrev = computed(() => {
+   return currentIndex.value > 0
+})
+
+/**
+ * 次のスライドがあるかどうか
+ */
+const hasNext = computed(() => {
+   return currentIndex.value + 1 < targetSlides.value.length
+})
+
+/**
+ * スライドの大きさ決めるクラスの指定
+ * 各高さによって決まる
+ */
+const slideClassName = computed(() => {
+   console.log(windowWidth.value, slideWidth.value)
+   /**
+    * ウィンドウ（comboFrameの場合はラッパー）の幅よりスライドの幅が小さい場合は高さを100%に指定
+    */
+   if (windowWidth.value > slideWidth.value) {
+      return 'slide-max-height'
+   }
+   /**
+    * ウィンドウ（comboFrameの場合はラッパー）の幅よりスライドの幅が大きい場合
+    */
+   if (windowWidth.value <= slideWidth.value) {
+      /**
+       * もしスライドの高さがスライドのラッパーより小さい場合は高さを100％
+       */
+      if (
+      slideHeight.value > swiperSlideHeight.value ||
+      swiperSlideHeight.value > windowHeight.value
+      ) {
+         return 'slide-max-height'
+      }
+      // それ以外は幅を100%
+      return 'slide-max-width'
+   }
+   return {}
+})
+
+const showNextButton = computed(() => {
+   console.log({ isSubScene: isSubScene(sceneName) })
+   return !hasNext.value && !isSubScene(sceneName)
+})
+
+
+
+/**
+ * 前のスライドへの移動
+ */
+function toPrev() {
+   swiperObj.value.slidePrev()
+}
+
+/**
+ * 次のスライドへの移動
+ */
+function toNext() {
+   swiperObj.value.slideNext()
+}
+
+
+function calcOrientation () {
+   if (screen.orientation) {
+      return screen.orientation.angle
+   } else {
+      /**
+       * orientationが取得できない古いデバイスは、仮想で計算する
+       */
+      const width = window.innerWidth
+      const height =window.innerHeight
+      // widthがheightよりも大きい時に90(landscape)
+      return width < height ? 0 : 90
+   }
+}
+
+calcOrientation()
+
+/**
+ * スマホの向きを確認
+ */
+const orientationAngle = ref(calcOrientation())
+
+const orientation = computed<'landscape'|'portrait'>(() => {
+   const landscapeList = [ 90, -90, 270 ]
+   if (landscapeList.includes(orientationAngle.value)) return 'landscape'
+   return 'portrait'
+})
+
+const touchStartSlideNumber = ref(0)
+const lastSlideSwiped = ref(false)
+
+function handleTouchEnd (swiper) {
+   if (touchStartSlideNumber.value === swiper.activeIndex && swiper.activeIndex === sliderLastIndex.value) {
+      lastSlideSwiped.value = true
+   }
+}
+
+function handleTouchStart (swiper) {
+   // console.log(swiper)
+   touchStartSlideNumber.value = currentIndex.value
+}
+/**
+ * ウィンドウの幅
+ * もしシーンがcomboシーンの場合は親のラッパーの幅にする
+ */
+const windowWidth = ref(0)
+/**
+ * ウィンドウの高さ
+ * もしシーンがcomboシーンの場合は親のラッパーの幅にする
+ */
+const windowHeight = ref(0)
+/**
+ * スライド画像の幅
+ */
+const slideWidth = ref(0)
+/**
+ * スライド画像の高さ
+ */
+const slideHeight = ref(0)
+/**
+ * スライドのラッパーの高さ
+ */
+const swiperSlideHeight = ref(0)
+/**
+ * ナビゲーションの高さ
+ */
+const slideNavHeight = ref(0)
+
+// ref
+/**
+ * スライドの要素
+ */
+const slideWrap = ref(null)
+/**
+ * ナビゲーションの要素
+ */
+const slideNavigation = ref(null)
+
+let slideElem = null
+let swiperSlideElem = null
+
+
+function calcWidth() {
+   if (isComboFrame.value && isSubScene(sceneName)) {
+      windowWidth.value = document.querySelector('.resizable-frame-side.sub').clientWidth
+   } else {
+      windowWidth.value = window.innerWidth
+   }
+   windowHeight.value = window.innerHeight
+   slideWidth.value = slideElem.clientWidth
+   slideHeight.value = slideElem.clientHeight
+   swiperSlideHeight.value = swiperSlideElem.clientHeight
+}
+
+let timer = null
+
+function onResize (evt) {
+   if (timer) {
+      clearTimeout(timer)
+   }
+   timer = setTimeout(() => {
+      calcWidth()
+   }, 300)
+}
+
+
+watch(hasNext, (newValue, oldValue) => {
+   console.log(newValue, oldValue)
+   if (newValue === false && oldValue === true && !isCurrentCompleteOnShow.value) {
+      toCompeteCurrentScene()
+   }
+})
+
+onMounted(() => {
+
+   slideElem = slideWrap.value.querySelector('.slide-img')
+   swiperSlideElem = slideWrap.value.querySelector('.swiper-slide')
+
+   // console.log(slideElem)
+
+   nextTick(() => {
+      setTimeout(() => {
+         slideNavHeight.value = slideNavigation.value.clientHeight
+         calcWidth()
+      }, 200)
+   })
+
+   window.addEventListener('resize', onResize)
+   window.addEventListener('orientationchange', (e) => {
+      orientationAngle.value = calcOrientation()
+      onResize(e)
+   })
+   sceneInitialized()
+
+})
+
+onUnmounted(() => {
+   window.removeEventListener('resize', onResize)
+   window.removeEventListener('orientationchange', onResize)
+})
+
+
+</script>
+<template>
+   <div id="slide-<%= id %>" :class="['slide', slideClassName, { 'slide-is-landscape': orientation === 'landscape', 'slide-last-slide-swiped': lastSlideSwiped } ]" ref="slideWrap">
+
+      <swiper
+              @swiper="onSwiper"
+              @touchStart="handleTouchStart"
+              @touchEnd="handleTouchEnd"
+              speed="<%= config.slide_speed || 300 %>"
+      >
+         <swiper-slide v-for="(slide, i) in targetSlides" :key="i"><img class="slide-img" :src="slide" alt="" /></swiper-slide>
+      </swiper>
+
+      <div class="slide-navigation-wrap" ref="slideNavigation">
+         <div class="slide-navigation">
+            <div class="slide-navigation-prev">
+               <button :class="['btn', { 'btn-disabled': !hasPrev }]" @click="hasPrev ? toPrev() : null">Preview</button>
+            </div>
+            <div class="slide-navigation-number">{{currentIndex+1}}/{{targetSlides.length}}</div>
+            <div class="slide-navigation-next">
+               <button :class="['btn', { 'btn-disabled': !hasNext } ]" @click="hasNext ? toNext() : null">Next</button>
+            </div>
+            <div v-if="hasShowableButton && !hasNext" class="slide-navigation-next-scene">
+               <button-next-scene v-html="btnLabelNextScene"></button-next-scene>
+               <button-next-unit v-html="btnLabelNextUnit"></button-next-unit>
+               <button-close-unit v-html="btnLabelCloseUnit"></button-close-unit>
+            </div>
+         </div>
+      </div>
+   </div>
+</template>
+<style lang="scss">
+#slide-<%= id %> {
+<%- styleSheetReplacement(style, [ '.resizable-frame', '.main-frame-scene', '.sub-frame-scene', '.slide' ]) %>
+}
+</style>
