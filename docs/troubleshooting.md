@@ -258,7 +258,7 @@ NODE_OPTIONS="--max-old-space-size=4096" npx plck build
 
 ### 7-1. push 先が個人アカウントになっている
 
-**症状**: `git remote -v` の出力が `masaki-sigoto` や個人アカウントを向いている
+**症状**: `git remote -v` の出力が個人の GitHub アカウントを向いている（クロスサポート以外のアカウント）
 
 **対応**:
 
