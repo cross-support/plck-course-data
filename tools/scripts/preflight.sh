@@ -22,7 +22,8 @@ BASE="$(cd "$SCRIPT_DIR/../.." && pwd)"
 SET="$BASE/講座セットフォルダ"
 PLCK="$BASE/plck-main"
 
-# 対象マッピング: unit_id_prefix | 講座フォルダ名
+# 対象マッピング (vi/zh ロジスティクス): unit_id_prefix | 講座フォルダ名
+# 各 prefix は unit01〜unit03 の 3 ユニットを持つ。
 PAIRS=(
   "vi-logistics01|ベトナム語_よくわかる！ロジスティクス入門Ⅰ"
   "vi-logistics02|ベトナム語_よくわかる！ロジスティクス入門Ⅱ"
@@ -34,6 +35,20 @@ PAIRS=(
   "zh-logistics04|中国語_よくわかる！ロジスティクス入門Ⅳ"
 )
 
+# 対象マッピング (privacy / security 日本語講座): unit_id | scene名 | 元素材ユニットフォルダ相対パス
+# vi/zh と異なり「UNIT{N}」形式ではなく、ユニットごとに固有のフォルダ名・scene名を持つため
+# 4 要素タプルで明示。zh-* 禁則チェックは適用外。
+JP_UNITS=(
+  "privacy-unit1|privacy-basics|個人情報保護/個人情報の取扱/Unit 1 個人情報保護の基礎知識"
+  "privacy-unit2|privacy-rules|個人情報保護/個人情報の取扱/Unit 2 個人情報の取得・利用・提供のルール"
+  "privacy-unit3|privacy-safety|個人情報保護/個人情報の取扱/Unit 3 安全管理措置と漏洩対応"
+  "privacy-unit4|privacy-practice|個人情報保護/個人情報の取扱/Unit 4 日常業務での実践"
+  "security-unit1|security-basics|個人情報保護/情報セキュリティ/Unit 1 情報セキュリティの基礎"
+  "security-unit2|security-attacks|個人情報保護/情報セキュリティ/Unit 2 サイバー攻撃の⼿⼝と対策"
+  "security-unit3|security-password|個人情報保護/情報セキュリティ/Unit 3パスワードとデバイス管理"
+  "security-unit4|security-daily|個人情報保護/情報セキュリティ/Unit4⽇常業務とインシデント対応"
+)
+
 FILTER="${1:-}"
 ERRORS=0
 WARNINGS=0
@@ -42,10 +57,25 @@ log()  { printf '[preflight] %s\n' "$*"; }
 err()  { printf '[preflight][ERROR] %s\n' "$*" >&2; ERRORS=$((ERRORS+1)); }
 warn() { printf '[preflight][WARN]  %s\n' "$*" >&2; WARNINGS=$((WARNINGS+1)); }
 
+# vi/zh ロジスティクス用: src_dir = $SET/$course_dir/UNIT{N}, scene = unit_id
 check_unit() {
   local unit_id="$1" course_dir="$2" unit_no="$3"
   local src_dir="$SET/$course_dir/UNIT${unit_no}"
   local plck_dir="$PLCK/contents/scenes/slide/$unit_id/slide"
+  _check_pair "$unit_id" "$src_dir" "$plck_dir"
+}
+
+# privacy/security 日本語講座用: src_dir / scene を明示指定
+check_unit_jp() {
+  local unit_id="$1" scene_name="$2" src_rel="$3"
+  local src_dir="$SET/$src_rel"
+  local plck_dir="$PLCK/contents/scenes/slide/$scene_name/slide"
+  _check_pair "$unit_id" "$src_dir" "$plck_dir"
+}
+
+# 共通本体: 元PNG ⇔ plck入力PNG の枚数・ハッシュ照合と中国語禁則チェック
+_check_pair() {
+  local unit_id="$1" src_dir="$2" plck_dir="$3"
   local is_chinese=0
   [[ "$unit_id" == zh-* ]] && is_chinese=1
 
@@ -116,7 +146,7 @@ check_unit() {
 }
 
 log "BASE=$BASE"
-log "checking ${#PAIRS[@]} course × 3 UNIT = 24 units"
+log "checking ${#PAIRS[@]} course × 3 UNIT (vi/zh) + ${#JP_UNITS[@]} JP units (privacy/security)"
 if [[ -n "$FILTER" ]]; then
   log "filter=$FILTER"
 fi
@@ -130,6 +160,12 @@ for pair in "${PAIRS[@]}"; do
     if [[ -n "$FILTER" && "$unit_id" != "$FILTER" ]]; then continue; fi
     check_unit "$unit_id" "$course" "$u"
   done
+done
+
+for entry in "${JP_UNITS[@]}"; do
+  IFS='|' read -r unit_id scene_name src_rel <<< "$entry"
+  if [[ -n "$FILTER" && "$unit_id" != "$FILTER" ]]; then continue; fi
+  check_unit_jp "$unit_id" "$scene_name" "$src_rel"
 done
 
 echo
