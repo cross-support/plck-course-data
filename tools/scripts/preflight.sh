@@ -47,6 +47,14 @@ JP_UNITS=(
   "security-unit2|security-attacks|個人情報保護/情報セキュリティ/Unit 2 サイバー攻撃の⼿⼝と対策"
   "security-unit3|security-password|個人情報保護/情報セキュリティ/Unit 3パスワードとデバイス管理"
   "security-unit4|security-daily|個人情報保護/情報セキュリティ/Unit4⽇常業務とインシデント対応"
+  "harass-sexual-unit1|harass-sexual-def|ハラスメント防止/セクシャルハラスメント防止の基本/UNIT1セクハラの定義と種類"
+  "harass-sexual-unit2|harass-sexual-cases|ハラスメント防止/セクシャルハラスメント防止の基本/UNIT2職場での具体的事例と判断基準"
+  "harass-sexual-unit3|harass-sexual-sogi|ハラスメント防止/セクシャルハラスメント防止の基本/UNIT3 SOGIハラスメントの理解"
+  "harass-sexual-unit4|harass-sexual-prevent|ハラスメント防止/セクシャルハラスメント防止の基本/UNIT4被害者・加害者にならないために"
+  "harass-power-unit1|harass-power-def|ハラスメント防止/パワーハラスメント防止の基本/UNIT1 パワハラの定義と6類型"
+  "harass-power-unit2|harass-power-gray|ハラスメント防止/パワーハラスメント防止の基本/UNIT2指導とパワハラの境界線（グレーゾーン）"
+  "harass-power-unit3|harass-power-anger|ハラスメント防止/パワーハラスメント防止の基本/UNIT3アンガーマネジメントの基礎"
+  "harass-power-unit4|harass-power-action|ハラスメント防止/パワーハラスメント防止の基本/UNIT4防止のための行動指針と職場の義務"
 )
 
 FILTER="${1:-}"
