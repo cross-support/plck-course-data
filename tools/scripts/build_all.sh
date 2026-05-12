@@ -9,9 +9,9 @@
 #   2. rm -rf dist && npx plck build : クリーンビルド（残骸累積を根絶）
 #   3. dist/{unit_id} → 講座セットフォルダ/.../LMS搭載用ZIP/{name}.zip
 #      対象: vi/zh-logistics (24本) + privacy/security (8本) + harass-sexual/power (8本)
-#          + biz-doc (4本) = 計 44 本
+#          + biz-doc (4本) + report-minutes (4本) = 計 48 本
 #      macOSメタ・.gitkeep を除外
-#   4. verify_zip.sh  : 44本すべてを構造・参照整合性検証
+#   4. verify_zip.sh  : 48本すべてを構造・参照整合性検証
 #
 # 使い方:
 #   ./tools/scripts/build_all.sh
@@ -70,6 +70,10 @@ JP_UNITS=(
   "biz-doc-unit2|ビジネス文書の基本"
   "biz-doc-unit3|ビジネス文書の基本"
   "biz-doc-unit4|ビジネス文書の基本"
+  "report-minutes-unit1|報告書・議事録の作成術"
+  "report-minutes-unit2|報告書・議事録の作成術"
+  "report-minutes-unit3|報告書・議事録の作成術"
+  "report-minutes-unit4|報告書・議事録の作成術"
 )
 
 log() { printf '\n\033[1;34m=== %s ===\033[0m\n' "$*"; }

@@ -59,6 +59,10 @@ JP_UNITS=(
   "biz-doc-unit2|biz-doc-prep|ビジネス文書の基本/UNIT2 正確・簡潔・分かりやすい文章術（PREP法）"
   "biz-doc-unit3|biz-doc-layout|ビジネス文書の基本/UNIT3 レイアウトと体裁の整え方"
   "biz-doc-unit4|biz-doc-internal-external|ビジネス文書の基本/UNIT4 社内文書・社外文書の違い"
+  "report-minutes-unit1|report-minutes-structure|報告書・議事録の作成術/Unit 1 報告書の構造と書き方"
+  "report-minutes-unit2|report-minutes-fact-opinion|報告書・議事録の作成術/Unit 2 事実と意見の明確な区別"
+  "report-minutes-unit3|report-minutes-5w1h|報告書・議事録の作成術/Unit 3 議事録の取り方とまとめ方（5W1H）"
+  "report-minutes-unit4|report-minutes-ai|報告書・議事録の作成術/Unit 4 AIを活用した議事録作成"
 )
 
 FILTER="${1:-}"
