@@ -8,9 +8,10 @@
 #   1. preflight.sh   : 元PNG⇔plck入力PNG のハッシュ一致、中国語講座の禁則
 #   2. rm -rf dist && npx plck build : クリーンビルド（残骸累積を根絶）
 #   3. dist/{unit_id} → 講座セットフォルダ/.../LMS搭載用ZIP/{name}.zip
-#      対象: vi/zh-logistics (24本) + privacy/security (8本) + harass-sexual/power (8本) = 計 40 本
+#      対象: vi/zh-logistics (24本) + privacy/security (8本) + harass-sexual/power (8本)
+#          + biz-doc (4本) = 計 44 本
 #      macOSメタ・.gitkeep を除外
-#   4. verify_zip.sh  : 40本すべてを構造・参照整合性検証
+#   4. verify_zip.sh  : 44本すべてを構造・参照整合性検証
 #
 # 使い方:
 #   ./tools/scripts/build_all.sh
@@ -65,6 +66,10 @@ JP_UNITS=(
   "harass-power-unit2|ハラスメント防止/パワーハラスメント防止の基本"
   "harass-power-unit3|ハラスメント防止/パワーハラスメント防止の基本"
   "harass-power-unit4|ハラスメント防止/パワーハラスメント防止の基本"
+  "biz-doc-unit1|ビジネス文書の基本"
+  "biz-doc-unit2|ビジネス文書の基本"
+  "biz-doc-unit3|ビジネス文書の基本"
+  "biz-doc-unit4|ビジネス文書の基本"
 )
 
 log() { printf '\n\033[1;34m=== %s ===\033[0m\n' "$*"; }

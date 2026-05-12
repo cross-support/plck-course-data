@@ -55,6 +55,10 @@ JP_UNITS=(
   "harass-power-unit2|harass-power-gray|ハラスメント防止/パワーハラスメント防止の基本/UNIT2指導とパワハラの境界線（グレーゾーン）"
   "harass-power-unit3|harass-power-anger|ハラスメント防止/パワーハラスメント防止の基本/UNIT3アンガーマネジメントの基礎"
   "harass-power-unit4|harass-power-action|ハラスメント防止/パワーハラスメント防止の基本/UNIT4防止のための行動指針と職場の義務"
+  "biz-doc-unit1|biz-doc-types|ビジネス文書の基本/Unit 1ビジネス文書の種類と目的"
+  "biz-doc-unit2|biz-doc-prep|ビジネス文書の基本/UNIT2 正確・簡潔・分かりやすい文章術（PREP法）"
+  "biz-doc-unit3|biz-doc-layout|ビジネス文書の基本/UNIT3 レイアウトと体裁の整え方"
+  "biz-doc-unit4|biz-doc-internal-external|ビジネス文書の基本/UNIT4 社内文書・社外文書の違い"
 )
 
 FILTER="${1:-}"
