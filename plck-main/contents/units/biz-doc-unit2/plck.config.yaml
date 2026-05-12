@@ -1,0 +1,16 @@
+title: 正確・簡潔・分かりやすい文章術（PREP法）
+default_lang: ja
+display_complete_alert: off
+complete_flg_scene:
+scene_menu: on
+multi_lang: off
+popup_explanation_text: このユニットは終了です。お疲れ様でした
+popup_next_unit_text: 次のユニットへ
+popup_close_text: 終了する
+label_text: 言語を選択してください
+lang:
+  - ja
+frames:
+  - main:
+      name: biz-doc-prep
+      type: slide
