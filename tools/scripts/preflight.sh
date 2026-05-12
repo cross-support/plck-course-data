@@ -63,6 +63,14 @@ JP_UNITS=(
   "report-minutes-unit2|report-minutes-fact-opinion|報告書・議事録の作成術/Unit 2 事実と意見の明確な区別"
   "report-minutes-unit3|report-minutes-5w1h|報告書・議事録の作成術/Unit 3 議事録の取り方とまとめ方（5W1H）"
   "report-minutes-unit4|report-minutes-ai|報告書・議事録の作成術/Unit 4 AIを活用した議事録作成"
+  "call-claim-unit1|call-claim-types|コールセンター専門/クレーム対応の実践/Unit1_クレームの種類と顧客心理"
+  "call-claim-unit2|call-claim-initial|コールセンター専門/クレーム対応の実践/Unit2_初期対応の重要性（謝罪と傾聴）"
+  "call-claim-unit3|call-claim-closing|コールセンター専門/クレーム対応の実践/Unit3_解決提案とクロージング"
+  "call-claim-unit4|call-claim-escalation|コールセンター専門/クレーム対応の実践/Unit4_エスカレーション判断と自己のメンタルケア"
+  "call-phone-unit1|call-phone-voice|コールセンター専門/電話応対の基本マナー/Unit 1 -第一印象を決める発声・滑舌"
+  "call-phone-unit2|call-phone-listening|コールセンター専門/電話応対の基本マナー/Unit 2 -正確な聞き取りと復唱"
+  "call-phone-unit3|call-phone-keigo|コールセンター専門/電話応対の基本マナー/Unit 3 -敬語と言葉遣い（クッション言葉）"
+  "call-phone-unit4|call-phone-transfer|コールセンター専門/電話応対の基本マナー/Unit 4 -保留・転送のマナー"
 )
 
 FILTER="${1:-}"
