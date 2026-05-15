@@ -9,9 +9,10 @@
 #   2. rm -rf dist && npx plck build : クリーンビルド（残骸累積を根絶）
 #   3. dist/{unit_id} → 講座セットフォルダ/.../LMS搭載用ZIP/{name}.zip
 #      対象: vi/zh-logistics (24本) + privacy/security (8本) + harass-sexual/power (8本)
-#          + biz-doc (4本) + report-minutes (4本) + call-claim/phone (8本) = 計 56 本
+#          + biz-doc (4本) + report-minutes (4本) + call-claim/phone (8本)
+#          + workskill01 (8本) = 計 64 本
 #      macOSメタ・.gitkeep を除外
-#   4. verify_zip.sh  : 56本すべてを構造・参照整合性検証
+#   4. verify_zip.sh  : 64本すべてを構造・参照整合性検証
 #
 # 使い方:
 #   ./tools/scripts/build_all.sh
@@ -66,14 +67,14 @@ JP_UNITS=(
   "harass-power-unit2|ハラスメント防止/パワーハラスメント防止の基本"
   "harass-power-unit3|ハラスメント防止/パワーハラスメント防止の基本"
   "harass-power-unit4|ハラスメント防止/パワーハラスメント防止の基本"
-  "biz-doc-unit1|ビジネス文書の基本"
-  "biz-doc-unit2|ビジネス文書の基本"
-  "biz-doc-unit3|ビジネス文書の基本"
-  "biz-doc-unit4|ビジネス文書の基本"
-  "report-minutes-unit1|報告書・議事録の作成術"
-  "report-minutes-unit2|報告書・議事録の作成術"
-  "report-minutes-unit3|報告書・議事録の作成術"
-  "report-minutes-unit4|報告書・議事録の作成術"
+  "biz-doc-unit1|ライティング・文書作成/ビジネス文書の基本"
+  "biz-doc-unit2|ライティング・文書作成/ビジネス文書の基本"
+  "biz-doc-unit3|ライティング・文書作成/ビジネス文書の基本"
+  "biz-doc-unit4|ライティング・文書作成/ビジネス文書の基本"
+  "report-minutes-unit1|ライティング・文書作成/報告書・議事録の作成術"
+  "report-minutes-unit2|ライティング・文書作成/報告書・議事録の作成術"
+  "report-minutes-unit3|ライティング・文書作成/報告書・議事録の作成術"
+  "report-minutes-unit4|ライティング・文書作成/報告書・議事録の作成術"
   "call-claim-unit1|コールセンター専門/クレーム対応の実践"
   "call-claim-unit2|コールセンター専門/クレーム対応の実践"
   "call-claim-unit3|コールセンター専門/クレーム対応の実践"
@@ -82,6 +83,14 @@ JP_UNITS=(
   "call-phone-unit2|コールセンター専門/電話応対の基本マナー"
   "call-phone-unit3|コールセンター専門/電話応対の基本マナー"
   "call-phone-unit4|コールセンター専門/電話応対の基本マナー"
+  "workskill01-unit1|ワークスキル/ワークスキル実践講座Ⅰ（基礎編）"
+  "workskill01-unit2|ワークスキル/ワークスキル実践講座Ⅰ（基礎編）"
+  "workskill01-unit3|ワークスキル/ワークスキル実践講座Ⅰ（基礎編）"
+  "workskill01-unit4|ワークスキル/ワークスキル実践講座Ⅰ（基礎編）"
+  "workskill01-unit5|ワークスキル/ワークスキル実践講座Ⅰ（基礎編）"
+  "workskill01-unit6|ワークスキル/ワークスキル実践講座Ⅰ（基礎編）"
+  "workskill01-unit7|ワークスキル/ワークスキル実践講座Ⅰ（基礎編）"
+  "workskill01-unit8|ワークスキル/ワークスキル実践講座Ⅰ（基礎編）"
 )
 
 log() { printf '\n\033[1;34m=== %s ===\033[0m\n' "$*"; }
