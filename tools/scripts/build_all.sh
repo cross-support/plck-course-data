@@ -10,9 +10,9 @@
 #   3. dist/{unit_id} → 講座セットフォルダ/.../LMS搭載用ZIP/{name}.zip
 #      対象: vi/zh-logistics (24本) + privacy/security (8本) + harass-sexual/power (8本)
 #          + biz-doc (4本) + report-minutes (4本) + call-claim/phone (8本)
-#          + workskill01 (8本) = 計 64 本
+#          + workskill01/02/03 (24本) = 計 80 本
 #      macOSメタ・.gitkeep を除外
-#   4. verify_zip.sh  : 64本すべてを構造・参照整合性検証
+#   4. verify_zip.sh  : 80本すべてを構造・参照整合性検証
 #
 # 使い方:
 #   ./tools/scripts/build_all.sh
@@ -91,6 +91,22 @@ JP_UNITS=(
   "workskill01-unit6|ワークスキル/ワークスキル実践講座Ⅰ（基礎編）"
   "workskill01-unit7|ワークスキル/ワークスキル実践講座Ⅰ（基礎編）"
   "workskill01-unit8|ワークスキル/ワークスキル実践講座Ⅰ（基礎編）"
+  "workskill02-unit1|ワークスキル/ワークスキル実践講座Ⅱ（実践編）"
+  "workskill02-unit2|ワークスキル/ワークスキル実践講座Ⅱ（実践編）"
+  "workskill02-unit3|ワークスキル/ワークスキル実践講座Ⅱ（実践編）"
+  "workskill02-unit4|ワークスキル/ワークスキル実践講座Ⅱ（実践編）"
+  "workskill02-unit5|ワークスキル/ワークスキル実践講座Ⅱ（実践編）"
+  "workskill02-unit6|ワークスキル/ワークスキル実践講座Ⅱ（実践編）"
+  "workskill02-unit7|ワークスキル/ワークスキル実践講座Ⅱ（実践編）"
+  "workskill02-unit8|ワークスキル/ワークスキル実践講座Ⅱ（実践編）"
+  "workskill03-unit1|ワークスキル/ワークスキル実践講座Ⅲ（自律編）"
+  "workskill03-unit2|ワークスキル/ワークスキル実践講座Ⅲ（自律編）"
+  "workskill03-unit3|ワークスキル/ワークスキル実践講座Ⅲ（自律編）"
+  "workskill03-unit4|ワークスキル/ワークスキル実践講座Ⅲ（自律編）"
+  "workskill03-unit5|ワークスキル/ワークスキル実践講座Ⅲ（自律編）"
+  "workskill03-unit6|ワークスキル/ワークスキル実践講座Ⅲ（自律編）"
+  "workskill03-unit7|ワークスキル/ワークスキル実践講座Ⅲ（自律編）"
+  "workskill03-unit8|ワークスキル/ワークスキル実践講座Ⅲ（自律編）"
 )
 
 log() { printf '\n\033[1;34m=== %s ===\033[0m\n' "$*"; }
