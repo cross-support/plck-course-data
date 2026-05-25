@@ -44,8 +44,11 @@ B_2026-03-30_PLCK_data/
 └── tools/                          ← 本フォルダ
     ├── README.md                   ← この文書
     └── scripts/
+        ├── build_all.sh            ← 正式入口: preflight → clean build → 80 ZIP → verify
+        ├── preflight.sh            ← 元PNGと plck入力PNG の照合
+        ├── verify_zip.sh           ← ZIP 構造・参照整合性の検証
         ├── pptx_to_png.sh          ← pptx → 高画質PNG 変換（単体）
-        └── build_unit.sh           ← pptx → PNG → plck build → Zip（一括）
+        └── build_unit.sh           ← pptx → PNG → plck build → Zip（単体）
 ```
 
 ## 標準ワークフロー
@@ -62,24 +65,33 @@ brew install poppler
 brew install imagemagick
 ```
 
-### A. 単一 UNIT を新規ビルド
+### A. 全対象を一括再ビルド（正式手順）
+
+```bash
+cd B_2026-03-30_PLCK_data
+./tools/scripts/build_all.sh
+```
+
+これだけで `preflight`、`rm -rf dist && npx plck build`、全 80 ZIP 生成、`verify_zip` まで実行します。Claude Code から実行する場合もこのコマンドを使います。
+
+### B. 単一 UNIT を新規ビルド（vi-* / ja-* 専用）
 
 ```bash
 cd B_2026-03-30_PLCK_data
 ./tools/scripts/build_unit.sh \
-    zh-logistics01-unit01 \
-    "/path/to/中国語 完成）〜 UNIT1.pptx" \
+    vi-logistics01-unit01 \
+    "/path/to/ベトナム語 完成）〜 UNIT1.pptx" \
     "/path/to/講座フォルダ/LMS搭載用ZIP"
 ```
 
 実行フロー:
-1. pptx → 一時コピー → Meiryo→Arial 置換 → soffice PDF → 200 DPI PNG 生成
+1. pptx → 一時コピー → Meiryo→Arial 置換 → soffice PDF → 200 DPI PNG 生成（zh-* では使用禁止）
 2. plck-main/contents/scenes/slide/{unit_id}/slide/ に `1.png..N.png` 配置
 3. `plck build` 実行
 4. dist/{unit_id}/ を Zip 化
 5. 指定 LMS フォルダに `{unit_id}.zip`（ハイフン→アンダースコア）を配置
 
-### B. PNG のみ再生成
+### C. PNG のみ再生成
 
 ```bash
 ./tools/scripts/pptx_to_png.sh \
@@ -87,10 +99,9 @@ cd B_2026-03-30_PLCK_data
     "/path/to/講座フォルダ/PNG/UNIT1"
 ```
 
-### C. 一括再ビルド（既存 24 UNIT）
+### D. 旧一括手順について
 
-`pptx_to_png.sh` と `build_unit.sh` を for ループで呼び出して 24 UNIT 一括実行可能。
-履歴として `/tmp/plck-regen/` に 2026-04-17 の実行スクリプトあり。
+`pptx_to_png.sh` と `build_unit.sh` を for ループで呼び出す旧手順は使わず、既存講座の再生成は `./tools/scripts/build_all.sh` を使う。
 
 ## 成果物の配置ルール
 

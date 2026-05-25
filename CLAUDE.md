@@ -41,13 +41,13 @@
 ./tools/scripts/build_all.sh
 ```
 
-これだけで **事前チェック → クリーンビルド → 全 24 ZIP 生成 → ZIP 検証** が自動で走り、
+これだけで **事前チェック → クリーンビルド → 全 80 ZIP 生成 → ZIP 検証** が自動で走り、
 事故条件に該当した段階で**停止**します。手動でのビルドは原則禁止。
 
 ### 何が自動化されているか
 1. `preflight.sh` — 元PNG⇔plck入力PNGのSHA-256照合、中国語(zh-\*)のpptx/pdf混入検出、枚数整合
 2. `rm -rf plck-main/dist && npx plck build` — クリーンビルド（index-\*.js/css の残骸累積を根絶）
-3. 24本ZIP生成（`.gitkeep`/`.DS_Store`/`__MACOSX`除外、`zip -X` で extra attr排除）
+3. 80本ZIP生成（vi/zh ロジスティクス 24本 + 日本語講座 56本。`.gitkeep`/`.DS_Store`/`__MACOSX`除外、`zip -X` で extra attr排除）
 4. `verify_zip.sh` — ルート直下の index.html 存在・参照JS/CSSの実在・累積重複ゼロ・macOSメタ無混入
 
 ### 覚えておくべき 3 つの禁則
@@ -104,12 +104,23 @@
 7. `.env` や認証情報の commit
 8. preflight が FAIL したまま ZIP を本番配置すること
 
-## 4. 対象講座（2026-04 時点）
+## 4. 対象講座（2026-05 時点）
 
 - `ベトナム語_よくわかる！ロジスティクス入門Ⅰ〜Ⅳ`（各 UNIT1〜UNIT3）
 - `中国語_よくわかる！ロジスティクス入門Ⅰ〜Ⅳ`（各 UNIT1〜UNIT3）
-- `個人情報の取扱`（搭載実績あり）
-- `情報セキュリティ`（搭載実績あり）
+- `個人情報の取扱`（UNIT1〜UNIT4）
+- `情報セキュリティ`（UNIT1〜UNIT4）
+- `セクシャルハラスメント防止の基本`（UNIT1〜UNIT4）
+- `パワーハラスメント防止の基本`（UNIT1〜UNIT4）
+- `ビジネス文書の基本`（UNIT1〜UNIT4）
+- `報告書・議事録の作成術`（UNIT1〜UNIT4）
+- `クレーム対応の実践`（UNIT1〜UNIT4）
+- `電話応対の基本マナー`（UNIT1〜UNIT4）
+- `ワークスキル実践講座Ⅰ（基礎編）`（UNIT1〜UNIT8）
+- `ワークスキル実践講座Ⅱ（実践編）`（UNIT1〜UNIT8）
+- `ワークスキル実践講座Ⅲ（自律編）`（UNIT1〜UNIT8）
+
+全対象は `tools/scripts/build_all.sh` の `PAIRS` と `JP_UNITS` を正本とする。
 
 plck-main 側 unit_id マッピング:
 
@@ -128,4 +139,4 @@ plck-main 側 unit_id マッピング:
 
 ---
 
-_最終更新: 2026-04-30_
+_最終更新: 2026-05-25_
