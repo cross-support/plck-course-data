@@ -31,7 +31,7 @@ html.html-scroll body{
     }
 }
 
-@media (max-width: 769px) {
+@media (max-width: 768px) {
     /*html,body*/
     html,body {
         height: 100vh;

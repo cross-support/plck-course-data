@@ -2,7 +2,7 @@
     height: 100%;
 }
 
-@media (max-width: 769px) {
+@media (max-width: 768px) {
     .slide {
         height: 100vh;
     }
