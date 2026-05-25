@@ -236,6 +236,9 @@ function calcWidth() {
 }
 
 let timer = null
+let slideResizeObserver = null
+let imgLoadHandlers = []
+let lastSlideSize = { w: 0, h: 0 }
 
 function onResize (evt) {
    if (timer) {
@@ -244,6 +247,11 @@ function onResize (evt) {
    timer = setTimeout(() => {
       calcWidth()
    }, 300)
+}
+
+function onOrientationChange (e) {
+   orientationAngle.value = calcOrientation()
+   onResize(e)
 }
 
 
@@ -259,7 +267,12 @@ onMounted(() => {
    slideElem = slideWrap.value.querySelector('.slide-img')
    swiperSlideElem = slideWrap.value.querySelector('.swiper-slide')
 
-   // console.log(slideElem)
+   // layout settle 後の即時再計算
+   requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+         calcWidth()
+      })
+   })
 
    nextTick(() => {
       setTimeout(() => {
@@ -268,18 +281,54 @@ onMounted(() => {
       }, 200)
    })
 
-   window.addEventListener('resize', onResize)
-   window.addEventListener('orientationchange', (e) => {
-      orientationAngle.value = calcOrientation()
-      onResize(e)
+   // 画像/iframe ロード完了後の再計算
+   if (document.readyState === 'complete') {
+      onResize(null)
+   } else {
+      window.addEventListener('load', onResize)
+   }
+
+   // slideWrap の ResizeObserver（iframe サイズ後確定に対応）
+   if (typeof ResizeObserver !== 'undefined') {
+      slideResizeObserver = new ResizeObserver(() => {
+         const w = slideWrap.value ? slideWrap.value.clientWidth : 0
+         const h = slideWrap.value ? slideWrap.value.clientHeight : 0
+         if (w === lastSlideSize.w && h === lastSlideSize.h) return
+         lastSlideSize = { w, h }
+         onResize(null)
+      })
+      slideResizeObserver.observe(slideWrap.value)
+   }
+
+   // 各画像のデコード完了後に再計算
+   const imgs = slideWrap.value.querySelectorAll('.slide-img')
+   imgLoadHandlers = []
+   imgs.forEach((img) => {
+      if (img.complete) {
+         onResize(null)
+      } else {
+         const h = () => onResize(null)
+         img.addEventListener('load', h, { once: true })
+         imgLoadHandlers.push({ img, h })
+      }
    })
+
+   window.addEventListener('resize', onResize)
+   window.addEventListener('orientationchange', onOrientationChange)
    sceneInitialized()
 
 })
 
 onUnmounted(() => {
+   if (timer) clearTimeout(timer)
    window.removeEventListener('resize', onResize)
-   window.removeEventListener('orientationchange', onResize)
+   window.removeEventListener('orientationchange', onOrientationChange)
+   window.removeEventListener('load', onResize)
+   if (slideResizeObserver) {
+      slideResizeObserver.disconnect()
+   }
+   imgLoadHandlers.forEach(({ img, h }) => img.removeEventListener('load', h))
+   imgLoadHandlers = []
 })
 
 
