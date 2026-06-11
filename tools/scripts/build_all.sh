@@ -51,14 +51,14 @@ PAIRS=(
 # privacy / security 日本語講座: unit_id | 配置先講座フォルダ相対パス
 # ZIP名は unit_id のハイフンをアンダースコアに変換した形（例: privacy_unit1.zip）。
 JP_UNITS=(
-  "privacy-unit1|個人情報保護/個人情報の取扱"
-  "privacy-unit2|個人情報保護/個人情報の取扱"
-  "privacy-unit3|個人情報保護/個人情報の取扱"
-  "privacy-unit4|個人情報保護/個人情報の取扱"
-  "security-unit1|個人情報保護/情報セキュリティ"
-  "security-unit2|個人情報保護/情報セキュリティ"
-  "security-unit3|個人情報保護/情報セキュリティ"
-  "security-unit4|個人情報保護/情報セキュリティ"
+  "privacy-unit1|コンプラ/個人情報の取扱"
+  "privacy-unit2|コンプラ/個人情報の取扱"
+  "privacy-unit3|コンプラ/個人情報の取扱"
+  "privacy-unit4|コンプラ/個人情報の取扱"
+  "security-unit1|コンプラ/情報セキュリティ"
+  "security-unit2|コンプラ/情報セキュリティ"
+  "security-unit3|コンプラ/情報セキュリティ"
+  "security-unit4|コンプラ/情報セキュリティ"
   "harass-sexual-unit1|ハラスメント防止/セクシャルハラスメント防止の基本"
   "harass-sexual-unit2|ハラスメント防止/セクシャルハラスメント防止の基本"
   "harass-sexual-unit3|ハラスメント防止/セクシャルハラスメント防止の基本"

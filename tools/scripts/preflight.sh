@@ -39,14 +39,14 @@ PAIRS=(
 # vi/zh と異なり「UNIT{N}」形式ではなく、ユニットごとに固有のフォルダ名・scene名を持つため
 # 4 要素タプルで明示。zh-* 禁則チェックは適用外。
 JP_UNITS=(
-  "privacy-unit1|privacy-basics|個人情報保護/個人情報の取扱/Unit 1 個人情報保護の基礎知識"
-  "privacy-unit2|privacy-rules|個人情報保護/個人情報の取扱/Unit 2 個人情報の取得・利用・提供のルール"
-  "privacy-unit3|privacy-safety|個人情報保護/個人情報の取扱/Unit 3 安全管理措置と漏洩対応"
-  "privacy-unit4|privacy-practice|個人情報保護/個人情報の取扱/Unit 4 日常業務での実践"
-  "security-unit1|security-basics|個人情報保護/情報セキュリティ/Unit 1 情報セキュリティの基礎"
-  "security-unit2|security-attacks|個人情報保護/情報セキュリティ/Unit 2 サイバー攻撃の⼿⼝と対策"
-  "security-unit3|security-password|個人情報保護/情報セキュリティ/Unit 3パスワードとデバイス管理"
-  "security-unit4|security-daily|個人情報保護/情報セキュリティ/Unit4⽇常業務とインシデント対応"
+  "privacy-unit1|privacy-basics|コンプラ/個人情報の取扱/Unit 1 個人情報保護の基礎知識"
+  "privacy-unit2|privacy-rules|コンプラ/個人情報の取扱/Unit 2 個人情報の取得・利用・提供のルール"
+  "privacy-unit3|privacy-safety|コンプラ/個人情報の取扱/Unit 3 安全管理措置と漏洩対応"
+  "privacy-unit4|privacy-practice|コンプラ/個人情報の取扱/Unit 4 日常業務での実践"
+  "security-unit1|security-basics|コンプラ/情報セキュリティ/Unit 1 情報セキュリティの基礎"
+  "security-unit2|security-attacks|コンプラ/情報セキュリティ/Unit 2 サイバー攻撃の⼿⼝と対策"
+  "security-unit3|security-password|コンプラ/情報セキュリティ/Unit 3パスワードとデバイス管理"
+  "security-unit4|security-daily|コンプラ/情報セキュリティ/Unit4⽇常業務とインシデント対応"
   "harass-sexual-unit1|harass-sexual-def|ハラスメント防止/セクシャルハラスメント防止の基本/UNIT1セクハラの定義と種類"
   "harass-sexual-unit2|harass-sexual-cases|ハラスメント防止/セクシャルハラスメント防止の基本/UNIT2職場での具体的事例と判断基準"
   "harass-sexual-unit3|harass-sexual-sogi|ハラスメント防止/セクシャルハラスメント防止の基本/UNIT3 SOGIハラスメントの理解"
