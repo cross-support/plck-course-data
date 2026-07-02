@@ -9,7 +9,7 @@ import {storeToRefs} from "pinia";
 const { t } = useI18n()
 
 const { showPopup } = storeToRefs(usePlckStore())
-const { toHidePopup } = usePlckStore()
+const { toBackToMenu } = usePlckStore()
 
 const nextUnitText = computed(() => {
   return t('main_popup_next_unit_text')
@@ -31,7 +31,7 @@ const closeText = computed(() => {
       <div class="unit-done-dialog-header">{{explanationText}}</div>
       <div class="unit-done-dialog-actions">
         <button-next-unit class="btn-next-unit" v-html="nextUnitText"></button-next-unit>
-        <base-button class="btn-close" v-html="closeText" @click.prevent="toHidePopup"></base-button>
+        <base-button class="btn-close" v-html="closeText" @click.prevent="toBackToMenu"></base-button>
       </div>
     </div>
 

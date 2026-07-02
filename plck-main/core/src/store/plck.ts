@@ -328,6 +328,28 @@ export const usePlckStore = defineStore('plck', () =>{
     }
 
     /**
+     * LMSの講座メニュー（/lesson/detail?id=UserLearningLessonId）へ親フレーム遷移する
+     * Rootはrepository初期化時のクエリパラメータであり、store自体は保持していないため
+     * 現在のURLのクエリから取得する（ページ遷移が発生しない構成のため常に有効な値が入る）
+     */
+    function toBackToMenu(): void {
+        const root = new URLSearchParams(window.location.search).get('Root')
+        const id = userLearningLessonId.value
+        if (!root || !id) {
+            toHidePopup()
+            return
+        }
+        try {
+            const base = new URL(String(root), window.location.href)
+            const menuUrl = base.origin + '/lesson/detail?id=' + encodeURIComponent(String(id))
+            const targetWindow = window.parent || window
+            targetWindow.location.href = menuUrl
+        } catch (e) {
+            toHidePopup()
+        }
+    }
+
+    /**
      * すべてのシーンが完了状態になった場合にユニットの完了リクエストを送信する
      * 完了状態に変化したときのみ（false => trueに変化したときのみ）となるため、
      * 再度Unitが完了状態になっている講座を開いても再度同じリクエストが起こることはない想定
@@ -388,5 +410,6 @@ export const usePlckStore = defineStore('plck', () =>{
         toNextUnit,
         toShowPopup,
         toHidePopup,
+        toBackToMenu,
     }
 })
