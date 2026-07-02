@@ -198,7 +198,7 @@ echo "css count: $(unzip -l "$ZIP" | grep -cE 'assets/index-.*\.css$')" # 期待
 - したがって「画像最適化」「WebP 変換」「圧縮」などを途中に挟まない。
 - 画像差し替えは **必ず元 PNG のバイト列をそのままコピー** する。
 
-※ 例外: ビルド前段階での「正本PNG → 配信用JPEG(quality=90) 併産」は `tools/scripts/png_to_jpg.sh` による正規工程として許可する（正本PNGは残しSHA照合を維持。詳細は CLAUDE.md §1 禁則2）。この禁則が禁じるのは vite ビルド工程そのものへの無断の画像加工・最適化プラグイン挿入である。
+※ 例外: ビルド前段階での「正本PNG → 配信用JPEG(quality=80) 併産」は `tools/scripts/png_to_jpg.sh` による正規工程として許可する（正本PNGは残しSHA照合を維持。詳細は CLAUDE.md §1 禁則2）。この禁則が禁じるのは vite ビルド工程そのものへの無断の画像加工・最適化プラグイン挿入である。
 
 ---
 

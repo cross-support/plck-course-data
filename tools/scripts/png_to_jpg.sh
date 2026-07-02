@@ -1,7 +1,7 @@
 #!/bin/bash
 # =============================================================================
 # png_to_jpg.sh
-# 正本PNG（{N}.png）から配信用JPEG（{N}.jpg, quality=90）を併産する
+# 正本PNG（{N}.png）から配信用JPEG（{N}.jpg, quality=80）を併産する
 #
 # 対象: ファイル名が番号のみ（例: 1.png, 12.png）の PNG
 # 対象外: "N 2.png" のような複製ファイル等、番号のみでないファイル
@@ -21,7 +21,7 @@ usage: png_to_jpg.sh <slide_dir>
 
 例:
   png_to_jpg.sh /path/to/plck-main/contents/scenes/slide/privacy-basics/slide
-  → 1.png, 2.png ... から 1.jpg, 2.jpg ... (quality=90) を生成
+  → 1.png, 2.png ... から 1.jpg, 2.jpg ... (quality=80) を生成
 EOF
     exit 1
 }
@@ -43,7 +43,7 @@ for png in "$DIR"/*.png; do
     [ -f "$png" ] || continue
     base=$(basename "$png" .png)
     if [[ "$base" =~ ^[0-9]+$ ]]; then
-        magick "$png" -quality 90 -strip "$DIR/$base.jpg"
+        magick "$png" -quality 80 -strip "$DIR/$base.jpg"
         converted=$((converted+1))
     else
         echo "WARN: skip (not a plain number filename): $(basename "$png")" >&2
