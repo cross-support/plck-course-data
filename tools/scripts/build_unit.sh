@@ -55,6 +55,10 @@ for f in "$TMP_PNG"/slide_*.png; do
 done
 echo "    PNGs placed: $SLIDE_DIR"
 
+# PNG配置後にJPEG(q90)併産＝配信用。正本はPNGのまま残す（このスクリプトはzh系で
+# Meiryo→Arial置換を含むため既存zh移行の再実行には使わない。上記の禁則は変わらず有効）
+bash "$SCRIPT_DIR/png_to_jpg.sh" "$SLIDE_DIR"
+
 # 2. PLCK ビルド
 echo ">>> [2/3] plck build"
 (cd "$PLCK" && npx plck build > /dev/null 2>&1)

@@ -48,7 +48,8 @@ B_2026-03-30_PLCK_data/
         ├── preflight.sh            ← 元PNGと plck入力PNG の照合
         ├── verify_zip.sh           ← ZIP 構造・参照整合性の検証
         ├── pptx_to_png.sh          ← pptx → 高画質PNG 変換（単体）
-        └── build_unit.sh           ← pptx → PNG → plck build → Zip（単体）
+        ├── build_unit.sh           ← pptx → PNG → plck build → Zip（単体）
+        └── png_to_jpg.sh           ← 正本PNG→配信用JPEG(q90)併産。build_unit.sh から呼ばれる
 ```
 
 ## 標準ワークフロー

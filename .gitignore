@@ -82,6 +82,9 @@ venv/
 **/*.zip
 # PNG はビルドプロセスで scenes/slide/* に置かれる作業ファイル
 plck-main/contents/scenes/slide/*/slide/*.png
+# JPEG は PNG から生成される配信用画像（同じく作業ファイル）
+plck-main/contents/scenes/slide/*/slide/*.jpg
+plck-main/contents/scenes/slide/*/slide/*.jpeg
 
 # スクリプト/ドキュメント由来の小さな図・スクショは許可したいので個別に除外解除する場合は
 # !docs/img/*.png のように明示的に追加すること

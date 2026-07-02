@@ -52,7 +52,11 @@
 
 ### 覚えておくべき 3 つの禁則
 1. **中国語 (zh-\*) 講座では `pptx_to_png.sh` / `build_unit.sh` の Meiryo→Arial 置換を使わない**（Arial に CJK 字形が無く明朝化する）
-2. **`plck-main/contents/scenes/slide/{unit}/slide/*.png` は 講座セットフォルダの元 PNG と SHA-256 完全一致を保つ**
+2. **配信画像は JPEG(quality=90) 必須。ただし品質保証の正本は PNG。**
+   - `plck-main/contents/scenes/slide/{unit}/slide/{N}.png` は削除せず残し、講座セットフォルダ（vi/zh）の元 PNG と SHA-256 完全一致を保つ（特に zh の Meiryo→Arial 明朝化をハッシュで検知＝禁則1 の担保。preflight.sh は PNG のみを照合するため無改修で成立する）
+   - 配信画像は正本 PNG から `tools/scripts/png_to_jpg.sh`（内部で `magick in.png -quality 90 -strip out.jpg`）で生成した `{N}.jpg`。config の `img:` は `.jpg` を参照し、dist/ZIP には JPEG のみが含まれる
+   - PPTX 由来の日本語講座（元 PNG が講座セットフォルダに無いもの）は PPTX を正本、`pptx_to_png.sh` が生成する PNG を中間正本として同様に JPEG 化する（zh では `pptx_to_png.sh` を使わない、禁則1 のとおり）
+   - `.png` と `.jpg` はいずれも Git 管理外（`.gitignore` 登録済み）
 3. **差分ビルド禁止。必ずクリーンビルド**（残骸累積で ZIP が肥大化する）
 
 ## 2. 崩れ発生時の切り分け最短ルート
