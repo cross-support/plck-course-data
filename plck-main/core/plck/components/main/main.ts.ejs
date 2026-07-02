@@ -12,6 +12,7 @@ import ButtonPrevScene from "@/components/plck/base/ButtonPrevScene.vue"
 import ButtonNextScene from "@/components/plck/base/ButtonNextScene.vue"
 import ButtonNextUnit from "@/components/plck/base/ButtonNextUnit.vue"
 import ButtonCloseUnit from "@/components/plck/base/ButtonCloseUnit.vue"
+import ButtonCompleteUnit from "@/components/plck/base/ButtonCompleteUnit.vue"
 
 // スタイルシートの読み込み
 import '@scenes/common.css'
@@ -46,6 +47,7 @@ app.component('ButtonPrevScene', ButtonPrevScene)
 app.component('ButtonNextScene', ButtonNextScene)
 app.component('ButtonNextUnit', ButtonNextUnit)
 app.component('ButtonCloseUnit', ButtonCloseUnit)
+app.component('ButtonCompleteUnit', ButtonCompleteUnit)
 <% frames.forEach(frame => { %>
 app.component('<%= frame.main.scene.componentName().value() %>', <%= frame.main.scene.componentName().value() %>)
 app.component('<%= frame.frameComponent.name.value() %>', <%= frame.frameComponent.name.value() %>)

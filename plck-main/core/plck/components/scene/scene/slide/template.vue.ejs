@@ -32,9 +32,9 @@ img.forEach((imgUrl, i) => {
 const { locale, t } = useI18n()
 
 const sceneName = '<%= name %>'
-const { isSubScene, toCompeteCurrentScene, toNextScene, toNextUnit, isLastFrame, isAllSceneCompleted } = usePlckStore()
+const { isSubScene, toCompeteCurrentScene, toNextScene, toNextUnit, isAllSceneCompleted, plckConfig } = usePlckStore()
 const { btnLabelNextScene, btnLabelCloseUnit, btnLabelNextUnit, hasShowableButton } = useSpecificButton('<%= name %>')
-const { isComboFrame, isCurrentCompleteOnShow } = storeToRefs(usePlckStore())
+const { isComboFrame, isCurrentCompleteOnShow, isLastFrame } = storeToRefs(usePlckStore())
 const { sceneInitialized } = useScene(sceneName)
 
 /**
@@ -123,6 +123,15 @@ const slideClassName = computed(() => {
 const showNextButton = computed(() => {
    console.log({ isSubScene: isSubScene(sceneName) })
    return !hasNext.value && !isSubScene(sceneName)
+})
+
+/**
+ * ユニット完了ボタン（次へ）の表示条件
+ * 最終フレームであり、かつポップアップ表示設定が有効な場合に表示する
+ * （実際の描画では、これに加えて !hasNext（最終スライド）も条件になる）
+ */
+const showCompleteUnitButton = computed(() => {
+   return isLastFrame.value && plckConfig.display_complete_alert === 'on'
 })
 
 
@@ -354,10 +363,11 @@ onUnmounted(() => {
             <div class="slide-navigation-next">
                <button :class="['btn', { 'btn-disabled': !hasNext } ]" @click="hasNext ? toNext() : null">Next</button>
             </div>
-            <div v-if="hasShowableButton && !hasNext" class="slide-navigation-next-scene">
+            <div v-if="(hasShowableButton || showCompleteUnitButton) && !hasNext" class="slide-navigation-next-scene">
                <button-next-scene v-html="btnLabelNextScene"></button-next-scene>
                <button-next-unit v-html="btnLabelNextUnit"></button-next-unit>
                <button-close-unit v-html="btnLabelCloseUnit"></button-close-unit>
+               <button-complete-unit v-if="showCompleteUnitButton" v-html="btnLabelNextScene"></button-complete-unit>
             </div>
          </div>
       </div>

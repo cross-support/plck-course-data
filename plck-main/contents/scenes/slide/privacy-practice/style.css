@@ -139,6 +139,31 @@
     }
 }
 
+/*
+ * 最終スライド（「次へ」ボタン表示時）のPC表示調整
+ * ◀ ページ番号 ▶ は通常ナビ行と完全に同一のまま一切変更しない。
+ * 「次へ」だけを▶の右側の余白に、ナビ行と同じ高さ（縦中央）で絶対配置する。
+ * ナビ行の padding や swiper の高さ（calc(100% - 126px)）は変更しない
+ * （スライド本体を縦に縮ませない）。スマホ表示（max-width:768px）には影響させない。
+ */
+@media (min-width: 769px) {
+    .slide-navigation-next-scene {
+        position: absolute;
+        right: 16px;
+        top: 50%;
+        transform: translateY(-50%);
+        flex: none;
+        width: auto;
+        min-width: 0;
+        margin: 0;
+    }
+
+    .slide-navigation-next-scene .btn {
+        width: auto;
+        padding: 0 24px;
+    }
+}
+
 .slide.slide-is-landscape.slide-max-height .swiper {
     height: 100%;
     overflow: hidden;

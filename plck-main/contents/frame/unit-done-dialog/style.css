@@ -19,11 +19,6 @@
     flex-direction: column;
 }
 
-.unit-done-dialog-message {
-    padding: 32px;
-    flex: 1;
-}
-
 .unit-done-dialog-actions {
     padding: 16px;
     display: flex;
@@ -39,4 +34,24 @@
     width: 100%;
     height: 100%;
     background: rgba(0,0,0,.2);
+}
+
+.unit-done-dialog-header {
+    background: #3a3f44;
+    color: #fff;
+    padding: 14px 20px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.unit-done-dialog-actions .btn-next-unit {
+    background-color: #F2C301;
+    box-shadow: 1px 2px #E2A902;
+    color: #333;
+}
+
+.unit-done-dialog-actions .btn-close {
+    background-color: #e2e5e8;
+    box-shadow: 1px 2px #b9bcc0;
+    color: #333;
 }

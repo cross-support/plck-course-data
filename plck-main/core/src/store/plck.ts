@@ -339,10 +339,6 @@ export const usePlckStore = defineStore('plck', () =>{
             await setCompleteUnit()
             // ユニットが完了した時に実行する
             unitCompleted()
-            // もしポップアップが有効な場合、ポップアップを表示する
-            if (plckConfig.display_complete_alert === 'on') {
-                toShowPopup()
-            }
         }
     })
 
@@ -357,6 +353,7 @@ export const usePlckStore = defineStore('plck', () =>{
         currentSuspendDataState,
         controllerData,
         unitId,
+        plckConfig,
         userLearningLessonId,
         lecturePathSortNo,
         completeOnShow,
