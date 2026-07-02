@@ -333,20 +333,27 @@ export const usePlckStore = defineStore('plck', () =>{
      * 現在のURLのクエリから取得する（ページ遷移が発生しない構成のため常に有効な値が入る）
      */
     function toBackToMenu(): void {
+        // PLCKはiframe内で動くため、閉じる対象は iframe自身ではなく講座ウィンドウ本体(window.top)
+        try {
+            const topWindow = window.top || window.parent || window
+            topWindow.close()
+        } catch (e) {
+            /* cross-origin等でtop参照不可のケースは下のフォールバックに委ねる */
+        }
+        // close が無効な環境向けフォールバック: 閉じられなければメニューURLへ遷移（400ms後）
         const root = new URLSearchParams(window.location.search).get('Root')
         const id = userLearningLessonId.value
-        if (!root || !id) {
-            toHidePopup()
-            return
-        }
-        try {
-            const base = new URL(String(root), window.location.href)
-            const menuUrl = base.origin + '/lesson/detail?id=' + encodeURIComponent(String(id))
-            const targetWindow = window.parent || window
-            targetWindow.location.href = menuUrl
-        } catch (e) {
-            toHidePopup()
-        }
+        if (!root || !id) return
+        window.setTimeout(() => {
+            try {
+                const base = new URL(String(root), window.location.href)
+                const menuUrl = base.origin + '/lesson/detail?id=' + encodeURIComponent(String(id))
+                const targetWindow = window.parent || window
+                targetWindow.location.href = menuUrl
+            } catch (e) {
+                /* noop */
+            }
+        }, 400)
     }
 
     /**
