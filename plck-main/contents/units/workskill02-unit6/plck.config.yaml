@@ -1,6 +1,6 @@
 title: 先読み力と「気づく力」を鍛える
 default_lang: ja
-display_complete_alert: off
+display_complete_alert: on
 complete_flg_scene:
 scene_menu: on
 multi_lang: off
