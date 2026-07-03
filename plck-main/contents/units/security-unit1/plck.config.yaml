@@ -1,6 +1,6 @@
 title: 情報セキュリティの基礎
 default_lang: ja
-display_complete_alert: off
+display_complete_alert: on
 complete_flg_scene:
 scene_menu: on
 multi_lang: on
