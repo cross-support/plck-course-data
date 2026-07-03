@@ -1,6 +1,6 @@
 title: やり切る力と挑戦を続ける強さ
 default_lang: ja
-display_complete_alert: off
+display_complete_alert: on
 complete_flg_scene:
 scene_menu: on
 multi_lang: off
