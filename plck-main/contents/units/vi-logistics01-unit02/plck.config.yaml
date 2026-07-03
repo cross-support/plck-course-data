@@ -1,12 +1,12 @@
 title: Dễ hiểu! Nhập môn Logistics Ⅰ UNIT2
 default_lang: vi
-display_complete_alert: off
+display_complete_alert: on
 complete_flg_scene:
 scene_menu: on
 multi_lang: on
 popup_explanation_text: Đơn vị này đã hoàn thành. Cảm ơn bạn đã chăm chỉ.
 popup_next_unit_text: Đơn vị tiếp theo
-popup_close_text: Đóng
+popup_close_text: Quay lại menu
 label_text: Chọn ngôn ngữ
 lang:
   - vi
