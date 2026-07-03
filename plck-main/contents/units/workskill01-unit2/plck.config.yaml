@@ -1,6 +1,6 @@
 title: 「聴く力」と「伝える力」の基本
 default_lang: ja
-display_complete_alert: off
+display_complete_alert: on
 complete_flg_scene:
 scene_menu: on
 multi_lang: off
