@@ -1,6 +1,6 @@
 title: 初期対応の重要性（謝罪と傾聴）
 default_lang: ja
-display_complete_alert: off
+display_complete_alert: on
 complete_flg_scene:
 scene_menu: on
 multi_lang: off
