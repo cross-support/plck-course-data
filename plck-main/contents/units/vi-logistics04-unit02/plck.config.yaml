@@ -5,7 +5,7 @@ complete_flg_scene:
 scene_menu: on
 multi_lang: on
 popup_explanation_text: Đơn vị này đã hoàn thành. Cảm ơn bạn đã chăm chỉ.
-popup_next_unit_text: Đơn vị tiếp theo
+popup_next_unit_text: '<span style="font-size:18px; white-space:nowrap; font-family:Arial, Roboto, sans-serif;">Đơn vị tiếp theo</span>'
 popup_close_text: Quay lại menu
 label_text: Chọn ngôn ngữ
 lang:
