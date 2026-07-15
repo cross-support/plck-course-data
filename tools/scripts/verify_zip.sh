@@ -11,6 +11,7 @@
 #   4. assets/index-*.js / assets/index-*.css の累積重複が無い（各 1 個のみ）
 #   5. macOS メタ（__MACOSX/ / .DS_Store / ._*）が混入していない
 #   6. 空 placeholder (.gitkeep) が混入していない
+#   7. iCloud 同期競合（"○○ 2" 複製 / "assets 2" 分裂）が混入していない
 #
 # 使い方:
 #   ./tools/scripts/verify_zip.sh path/to/zip1 [path/to/zip2 ...]
@@ -107,6 +108,18 @@ verify_one() {
   # (6) .gitkeep
   if echo "$names" | grep -qE '(^|/)\.gitkeep$'; then
     printf '[verify_zip][WARN]  %s: .gitkeep が含まれている（搭載に支障はないが除外推奨）\n' "$base" >&2
+  fi
+
+  # (7) iCloud 同期競合の混入（"○○ 2" 複製 / "assets 2" 分裂）
+  #     末尾/途中に " <数字>" を持つパス（例: assets 2/…, foo 2.js）は iCloud/Finder
+  #     の競合命名。ZIP に混入していると資産が正パスに無く LMS で 404 になる。
+  #     注意: 現状 dist 内は Vite のハッシュ名でスペースを含まないため誤検知しない。
+  #     将来 img/assets 配下に「スペース+数字」を含む正当なファイル名を採用する場合は
+  #     この検査(7)の正規表現を見直すこと（iCloud競合と誤認して FAIL するため）。
+  if echo "$names" | grep -qE ' [0-9]+(/|\.[^/]*$|$)'; then
+    printf '[verify_zip][ERROR] %s: iCloud 同期競合エントリが混入（"○○ 2"/"assets 2"）\n' "$base" >&2
+    echo "$names" | grep -E ' [0-9]+(/|\.[^/]*$|$)' | sed 's/^/    混入: /' >&2
+    errs=$((errs+1))
   fi
 
   if (( errs == 0 )); then

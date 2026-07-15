@@ -46,7 +46,8 @@ B_2026-03-30_PLCK_data/
     └── scripts/
         ├── build_all.sh            ← 正式入口: preflight → clean build → 80 ZIP → verify
         ├── preflight.sh            ← 元PNGと plck入力PNG の照合
-        ├── verify_zip.sh           ← ZIP 構造・参照整合性の検証
+        ├── verify_zip.sh           ← ZIP 構造・参照整合性の検証（iCloud競合混入も検出）
+        ├── icloud_guard.sh         ← iCloud同期競合("○○ 2"/"assets 2")の掃除＆ZIP化前ガード
         ├── pptx_to_png.sh          ← pptx → 高画質PNG 変換（単体）
         ├── build_unit.sh           ← pptx → PNG → plck build → Zip（単体）
         └── png_to_jpg.sh           ← 正本PNG→配信用JPEG(q90)併産。build_unit.sh から呼ばれる
@@ -129,6 +130,7 @@ cd B_2026-03-30_PLCK_data
 | soffice が PDF 出力しない | 多重起動の衝突 | `pgrep -f soffice` で待機 |
 | unzip した pptx 内ファイルが 000 権限 | pptx 内部の保存形式 | `chmod -R u+rw` で修復（script 内で対応済） |
 | ヘッダーがピンクに戻る | 古いテンプレートが使われた | `core/commands/initialize/contents/frame/header/style.css` を確認 |
+| **LMS で特定 UNIT だけ 404／開かない** | **iCloud 同期競合で `dist/<unit>/assets` が `assets 2` に分裂し、index.html が名指すハッシュ資産が競合側に取り残されたまま ZIP 化された** | **① ビルド＆ZIP化は非iCloudローカル（例 `~/plck-build/`）で行い、`verify_zip` 通過後の最終ZIPだけ iCloud フォルダへコピー。② `build_all.sh`/`build_unit.sh` は `icloud_guard.sh` で自動掃除＋非空競合なら中止。③ 手動ZIPは必ず `verify_zip.sh` を通す（検査(7) が混入を検出）** |
 
 ## 変更履歴
 
@@ -137,3 +139,8 @@ cd B_2026-03-30_PLCK_data
   - Meiryo→Arial 置換を標準化
   - ヘッダー CSS を日本語版仕様に統一
   - tools/scripts を新設
+- 2026-07-15: iCloud 同期競合による ZIP 破損（LMS 404）対策を組み込み
+  - `icloud_guard.sh` を新設（空の競合複製の掃除＋非空競合での ZIP 化中止ガード）
+  - `build_all.sh`／`build_unit.sh` の ZIP 化直前にガードを追加、`build_unit.sh` に `verify_zip` を追加
+  - `verify_zip.sh` に検査(7)（`"○○ 2"`/`"assets 2"` 混入検出）を追加
+  - 実障害: 中国語ロジⅠ unit01 が LMS で 404（`assets` 分裂）。検証済みZIP載せ直しで解消

@@ -11,8 +11,9 @@
 #      対象: vi/zh-logistics (24本) + privacy/security (8本) + harass-sexual/power (8本)
 #          + biz-doc (4本) + report-minutes (4本) + call-claim/phone (8本)
 #          + workskill01/02/03 (24本) = 計 80 本
-#      macOSメタ・.gitkeep を除外
-#   4. verify_zip.sh  : 80本すべてを構造・参照整合性検証
+#      macOSメタ・.gitkeep を除外。iCloud競合(assets 2等)を掃除＋ガードし、
+#      各本を一時領域でzip→verify_zip通過後にのみ本番配置（壊れZIPで旧版を上書きしない）
+#   4. verify_zip.sh  : 80本すべてを構造・参照整合性で最終検証（配置前検証の念押し）
 #
 # 使い方:
 #   ./tools/scripts/build_all.sh
@@ -26,6 +27,9 @@ BASE="$(cd "$SCRIPT_DIR/../.." && pwd)"
 PLCK="$BASE/plck-main"
 SET="$BASE/講座セットフォルダ"
 DIST="$PLCK/dist"
+
+# iCloud 同期競合（"○○ 2" 複製 / "assets 2" 分裂）の掃除＆ガード関数を読み込む
+source "$SCRIPT_DIR/icloud_guard.sh"
 
 SKIP_PREFLIGHT=0
 for arg in "$@"; do
@@ -129,6 +133,11 @@ cd "$PLCK"
 rm -rf dist
 npx plck build 2>&1 | tail -3
 
+# ビルド直後、iCloud が生成した空の同期競合（"○○ 2" / "assets 2"）を掃除する。
+# 非空の実分裂は各 ZIP 化直前（zip_one）でガード＋verify_zip し、通過時のみ本番配置する
+# （STEP4 は全80本の最終念押し検証）。
+plck_clean_icloud_conflicts "$DIST"
+
 ############################################
 # STEP 3: ZIP 生成（vi/zh × 3 = 24本 + privacy/security × 4 = 8本 = 計32本）
 ############################################
@@ -146,8 +155,25 @@ zip_one() {
     echo "[build_all][ERROR] dist 生成物が無い: $src" >&2
     exit 3
   fi
+  # ZIP化直前ガード: 空の iCloud 競合を掃除し、非空の実分裂が残れば中止（404防止）
+  plck_clean_icloud_conflicts "$src"
+  plck_assert_no_icloud_conflicts "$src" || exit 4
+  # 一時（非iCloud=$TMPDIR）で ZIP を組み、verify_zip 通過後にのみ本番配置する。
+  # 壊れたZIPで旧・正常ZIPを上書きしないための配置前ゲート（CLAUDE.md 禁則8）。
+  # 一時ディレクトリ方式にして中間ファイルのリークを防ぐ（ループ80回でも残さない）。
+  local tmp_dir tmp_zip vz_out
+  tmp_dir="$(mktemp -d -t plck_zip_XXXX)"
+  tmp_zip="$tmp_dir/out.zip"
+  (cd "$src" && zip -rqX "$tmp_zip" . -x ".gitkeep" "img/.gitkeep" "*.DS_Store" "__MACOSX/*")
+  if ! vz_out="$(bash "$SCRIPT_DIR/verify_zip.sh" "$tmp_zip" 2>&1)"; then
+    printf '%s\n' "$vz_out" >&2
+    rm -rf "$tmp_dir"
+    echo "[build_all][ERROR] verify_zip 失敗のため本番配置しません: $unit_id" >&2
+    exit 5
+  fi
   rm -f "$dst"
-  (cd "$src" && zip -rqX "$dst" . -x ".gitkeep" "img/.gitkeep" "*.DS_Store" "__MACOSX/*")
+  mv "$tmp_zip" "$dst"
+  rm -rf "$tmp_dir"
   local size
   size=$(du -h "$dst" | awk '{print $1}')
   printf '  -> %s  (%s)\n' "$zip_name" "$size"

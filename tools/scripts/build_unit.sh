@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # =============================================================================
 # build_unit.sh
 # 単一 UNIT の完全自動ビルドフロー
@@ -32,6 +32,9 @@ LMS_DIR="${3:-}"
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 PLCK="$(cd "$SCRIPT_DIR/../../plck-main" && pwd)"
 
+# iCloud 同期競合（"○○ 2" 複製 / "assets 2" 分裂）の掃除＆ガード関数を読み込む
+source "$SCRIPT_DIR/icloud_guard.sh"
+
 # Zip 名: zh-logistics01-unit01 → zh_logistics01_unit01
 ZIP_NAME=$(echo "$UNIT_ID" | sed 's/-/_/g').zip
 
@@ -40,7 +43,8 @@ SLIDE_DIR="$PLCK/contents/scenes/slide/$UNIT_ID/slide"
 [ -d "$(dirname "$SLIDE_DIR")" ] || { echo "ERROR: unit not found in plck-main: $UNIT_ID" >&2; exit 2; }
 
 TMP_PNG=$(mktemp -d -t build_unit_XXXX)
-trap "rm -rf '$TMP_PNG'" EXIT
+TMP_ZIP_DIR=""
+trap 'rm -rf "$TMP_PNG"; [ -n "$TMP_ZIP_DIR" ] && rm -rf "$TMP_ZIP_DIR"' EXIT
 
 echo ">>> [1/3] PNG generation"
 bash "$SCRIPT_DIR/pptx_to_png.sh" "$PPTX" "$TMP_PNG"
@@ -68,8 +72,16 @@ DIST_DIR="$PLCK/dist/$UNIT_ID"
 
 # 3. Zip 化
 echo ">>> [3/3] Zip"
-TMP_ZIP=$(mktemp -t plck_zip_XXXX).zip
-(cd "$DIST_DIR" && zip -rq "$TMP_ZIP" .)
+# Zip化直前ガード: 空の iCloud 競合を掃除し、非空の実分裂が残れば中止（404防止）
+plck_clean_icloud_conflicts "$DIST_DIR"
+plck_assert_no_icloud_conflicts "$DIST_DIR" || exit 4
+# 一時ディレクトリ方式で中間ファイルのリークを防ぐ（trap で dir ごと掃除）
+TMP_ZIP_DIR=$(mktemp -d -t plck_zip_XXXX)
+TMP_ZIP="$TMP_ZIP_DIR/$ZIP_NAME"
+(cd "$DIST_DIR" && zip -rqX "$TMP_ZIP" . -x ".gitkeep" "img/.gitkeep" "*.DS_Store" "__MACOSX/*")
+
+# 生成物を検証（構造・参照整合・iCloud競合混入）。失敗なら set -e で中止し配置しない。
+bash "$SCRIPT_DIR/verify_zip.sh" "$TMP_ZIP"
 
 if [ -n "$LMS_DIR" ]; then
     mkdir -p "$LMS_DIR"
@@ -79,4 +91,4 @@ else
     cp -f "$TMP_ZIP" "$PLCK/$ZIP_NAME"
     echo "OK: $PLCK/$ZIP_NAME ($(du -h "$TMP_ZIP" | cut -f1))"
 fi
-rm -f "$TMP_ZIP"
+rm -rf "$TMP_ZIP_DIR"
